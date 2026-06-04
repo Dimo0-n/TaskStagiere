@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color: #151a1c;
+  background: #f4f7f6;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.legal-preview-page {
+  aspect-ratio: 210 / 297;
+  width: min(100%, 210mm);
+  min-width: 320px;
+  padding: var(--document-margin-top, 20mm) var(--document-margin-right, 15mm)
+    var(--document-margin-bottom, 20mm) var(--document-margin-left, 25mm);
+}
+
+.legal-document-template {
+  color: #111827;
+  font-family: var(--document-font-family, 'Times New Roman'), Times, serif;
+  font-size: var(--document-font-size, 12px);
+  line-height: var(--document-line-height, 1.5);
+}
+
+.legal-document-template p {
+  text-align: var(--document-text-align, justify);
+  text-indent: 1.25cm;
+}
+
+.legal-document-template h1,
+.legal-document-template h2,
+.legal-document-template .no-indent,
+.legal-document-template .text-right p,
+.legal-document-template .flex p,
+.legal-document-template .grid p {
+  text-indent: 0;
+}

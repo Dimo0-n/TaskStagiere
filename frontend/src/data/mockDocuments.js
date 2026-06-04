@@ -1,0 +1,88 @@
+export const mockDocuments = [
+  {
+    id: 'DOC-1048',
+    title: 'Plângere privind tulburarea posesiei',
+    type: 'Plângere',
+    createdAt: '2026-06-03',
+    status: 'Finalizat',
+    owner: 'Av. Irina Ceban',
+    updatedAt: '2026-06-03',
+  },
+  {
+    id: 'DOC-1047',
+    title: 'Cerere de chemare în judecată pentru pretenții',
+    type: 'Cerere de chemare în judecată',
+    createdAt: '2026-06-02',
+    status: 'În revizuire',
+    owner: 'Av. Andrei Munteanu',
+    updatedAt: '2026-06-04',
+  },
+  {
+    id: 'DOC-1046',
+    title: 'Procură pentru reprezentare în litigiu',
+    type: 'Procură',
+    createdAt: '2026-06-01',
+    status: 'Ciornă',
+    owner: 'Av. Maria Lupu',
+    updatedAt: '2026-06-02',
+  },
+  {
+    id: 'DOC-1045',
+    title: 'Plângere contravențională',
+    type: 'Plângere',
+    createdAt: '2026-05-30',
+    status: 'Finalizat',
+    owner: 'Av. Victor Rusu',
+    updatedAt: '2026-05-31',
+  },
+  {
+    id: 'DOC-1044',
+    title: 'Cerere privind încasarea datoriei contractuale',
+    type: 'Cerere de chemare în judecată',
+    createdAt: '2026-05-28',
+    status: 'Finalizat',
+    owner: 'Av. Irina Ceban',
+    updatedAt: '2026-05-29',
+  },
+  {
+    id: 'DOC-1043',
+    title: 'Procură de reprezentare notarială',
+    type: 'Procură',
+    createdAt: '2026-05-25',
+    status: 'În revizuire',
+    owner: 'Av. Andrei Munteanu',
+    updatedAt: '2026-05-27',
+  },
+  {
+    id: 'DOC-1042',
+    title: 'Plângere către autoritatea publică locală',
+    type: 'Plângere',
+    createdAt: '2026-05-22',
+    status: 'Ciornă',
+    owner: 'Av. Maria Lupu',
+    updatedAt: '2026-05-23',
+  },
+];
+
+export const documentStats = [
+  {
+    label: 'Documente generate',
+    value: '128',
+    change: '+18 luna aceasta',
+  },
+  {
+    label: 'Ciorne active',
+    value: '14',
+    change: '6 actualizate azi',
+  },
+  {
+    label: 'În revizuire',
+    value: '9',
+    change: '3 așteaptă semnătura',
+  },
+  {
+    label: 'Șabloane disponibile',
+    value: '3',
+    change: 'Set juridic inițial',
+  },
+];
