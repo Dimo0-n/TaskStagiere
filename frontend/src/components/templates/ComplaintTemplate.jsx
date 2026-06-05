@@ -32,7 +32,6 @@ function ComplaintTemplate({ data = {} }) {
           {value(
             data,
             'continut_plangere',
-            'Prin prezenta solicit examinarea situației descrise și dispunerea măsurilor legale necesare.',
           )}
         </p>
         <p>
@@ -46,10 +45,10 @@ function ComplaintTemplate({ data = {} }) {
           <p>Data: {value(data, 'data')}</p>
           <p>Ora: {value(data, 'ora')}</p>
         </div>
-        <div className="text-right">
-          <p>Semnătura,</p>
-          <p className="mt-8 font-bold">{value(data, 'semnatura')}</p>
-        </div>
+          <div className="text-right">
+              <p>Semnătura:</p>
+              <p className="mt-8 border-t border-ink-900" style={{ width: '100px' }}></p>
+          </div>
       </div>
     </article>
   );

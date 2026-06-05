@@ -7,14 +7,21 @@ import { TextArea, TextInput } from '../ui/FormControls.jsx';
 const requiredMessage = 'Camp obligatoriu.';
 
 const defaultValues = {
-  mandatar_nume: '',
-  mandatar_prenume: '',
-  mandatar_cetatenie:'',
-  mandatar_adresa_domiciliu: '',
-  mandatar_idnp: '',
-  mandatar_serie: '',
-  scop_mandat: '',
-  data_emiterii: '',
+      mandatar_nume: '',
+      mandatar_prenume: '',
+      mandatar_cetatenie:'',
+      mandatar_adresa_domiciliu: '',
+      mandatar_idnp: '',
+      mandatar_serie: '',
+      scop_mandat: '',
+      imputernicit_nume: '',
+      imputernicit_prenume: '',
+      imputernicit_cetatenie:'',
+      imputernicit_adresa_domiciliu: '',
+      imputernicit_idnp: '',
+      locul_redactarii_documentului: '',
+      imputernicit_serie: '',
+      data_emiterii: '',
 };
 
 function PowerOfAttorneyForm({ onSubmit, onValuesChange }) {
@@ -80,15 +87,73 @@ function PowerOfAttorneyForm({ onSubmit, onValuesChange }) {
         />
         <TextInput
           id="mandatar_serie"
-          label="Seria actului de identitate"
+          label="Serie buletin"
           required
           error={errors.mandatar_serie}
           registration={register('mandatar_serie', { required: requiredMessage })}
         />
       </div>
 
-      <h3 className="text-sm font-semibold text-ink-900">Detalii Mandat</h3>
+      <h3 className="text-sm font-semibold text-ink-900">Date Persoana imputernicita</h3>
 
+        <div className="grid gap-4 md:grid-cols-2">
+            <TextInput
+                id="imputernicit_nume"
+                label="Nume"
+                required
+                error={errors.imputernicit_nume}
+                registration={register('imputernicit_nume', { required: requiredMessage })}
+            />
+            <TextInput
+                id="imputernicit_prenume"
+                label="Prenume"
+                required
+                error={errors.imputernicit_prenume}
+                registration={register('imputernicit_prenume', { required: requiredMessage })}
+            />
+        </div>
+
+        <TextInput
+            id="imputernicit_cetatenie"
+            label="Tara de origine imputernicit"
+            required
+            error={errors.imputernicit_cetatenie}
+            registration={register('imputernicit_cetatenie', { required: requiredMessage })}
+        />
+
+        <TextInput
+            id="imputernicit_adresa_domiciliu"
+            label="Adresa domiciliu"
+            required
+            error={errors.imputernicit_adresa_domiciliu}
+            registration={register('imputernicit_adresa_domiciliu', { required: requiredMessage })}
+        />
+
+        <div className="grid gap-4 md:grid-cols-2">
+            <TextInput
+                id="imputernicit_idnp"
+                label="IDNP"
+                required
+                error={errors.imputernicit_idnp}
+                registration={register('imputernicit_idnp', { required: requiredMessage })}
+            />
+            <TextInput
+                id="imputernicit_serie"
+                label="Serie buletin"
+                required
+                error={errors.imputernicit_serie}
+                registration={register('imputernicit_serie', { required: requiredMessage })}
+            />
+        </div>
+
+      <h3 className="text-sm font-semibold text-ink-900">Detalii Mandat</h3>
+        <TextInput
+            id="locul_redactarii_documentului"
+            label="Institutia redactarii documentului"
+            required
+            error={errors.locul_redactarii_documentului}
+            registration={register('locul_redactarii_documentului', { required: requiredMessage })}
+        />
       <TextArea
         id="scop_mandat"
         label="Scopul mandatului"
