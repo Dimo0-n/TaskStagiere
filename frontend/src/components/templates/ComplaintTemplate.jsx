@@ -25,7 +25,7 @@ function ComplaintTemplate({ data = {} }) {
         </p>
       </section>
 
-      <h1 className="mb-8 text-center text-sm font-bold uppercase">Plângere</h1>
+      <h1 className="mb-4 text-center text-sm font-bold uppercase">Plângere</h1>
 
       <section className="space-y-4">
         <p>
@@ -33,8 +33,7 @@ function ComplaintTemplate({ data = {} }) {
             data,
             'continut_plangere',
           )}
-        </p>
-        <p>
+            <div className="h-1"></div>
           Solicit înregistrarea prezentei plângeri, verificarea circumstanțelor indicate și comunicarea rezultatului în
           termenul prevăzut de lege.
         </p>

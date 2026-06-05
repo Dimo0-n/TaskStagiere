@@ -14,8 +14,7 @@ export const documentTypes = [
       'telefon',
       'continut_plangere',
       'data',
-      'ora',
-      'semnatura',
+      'ora'
     ],
     sections: ['Bloc destinatar', 'Date personale', 'Conținut plângere', 'Data și semnătura'],
   },
@@ -64,8 +63,7 @@ export const documentTypes = [
       'temei_juridic',
       'solicitari',
       'anexe',
-      'data',
-      'semnatura',
+      'data'
     ],
     sections: ['Instanță', 'Părți', 'Reprezentant', 'Fapte', 'Temei juridic', 'Solicitări', 'Anexe'],
   },

@@ -56,13 +56,16 @@ function StatementOfClaimTemplate({ data = {} }) {
         <p>{value(data, 'anexe')}</p>
       </section>
 
-      <div className="mt-12 grid grid-cols-2 gap-8">
-        <p>Data: {value(data, 'data')}</p>
-        <div className="text-right">
-          <p>Semnătura,</p>
-          <p className="mt-8 font-bold">{value(data, 'semnatura')}</p>
+        <div className="mt-8 grid grid-cols-2 gap-8">
+            <div>
+                <p>Data:</p>
+                <p>{value(data, 'data')}</p>
+            </div>
+            <div className="text-right">
+                <p>Semnătura:</p>
+                <p className="mt-8 border-t border-ink-900" style={{ width: '100px' }}></p>
+            </div>
         </div>
-      </div>
     </article>
   );
 }
