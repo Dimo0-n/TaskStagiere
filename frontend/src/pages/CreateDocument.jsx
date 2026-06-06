@@ -18,6 +18,7 @@ import {
   createPowerOfAttorney,
   createStatementOfClaim,
 } from "../services/documentService";
+import { useFormatting } from "../context/useFormatting";
 
 const documentIcons = {
   complaint: Scale,
@@ -35,6 +36,8 @@ function CreateDocument() {
   const [selectedTypeId, setSelectedTypeId] = useState(documentTypes[0].id);
   const [draftValues, setDraftValues] = useState({});
   const [savedDraft, setSavedDraft] = useState(null);
+
+  const { formatting } = useFormatting();
 
   const selectedType = useMemo(
     () => documentTypes.find((type) => type.id === selectedTypeId) ?? documentTypes[0],
@@ -62,20 +65,25 @@ function CreateDocument() {
   const handleDraftSubmit = useCallback(
       async (values) => {
 
+        const request = {
+          documentData: values,
+          formatting: formatting
+        };
+
         try {
 
           switch (selectedType.id) {
 
             case "complaint":
-              await createComplaint(values);
+              await createComplaint(request);
               break;
 
             case "procura":
-              await createPowerOfAttorney(values);
+              await createPowerOfAttorney(request);
               break;
 
             case "statement-of-claim":
-              await createStatementOfClaim(values);
+              await createStatementOfClaim(request);
               break;
 
             default:

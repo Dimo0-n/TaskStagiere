@@ -6,7 +6,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class StatementOfClaimRequest {
+public class StatementOfClaimRequestDto {
 
     private String instanta;
 

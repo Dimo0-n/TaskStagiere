@@ -6,7 +6,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PowerOfAttorneyRequest {
+public class PowerOfAttorneyRequestDto {
 
     private String mandatarNume;
 

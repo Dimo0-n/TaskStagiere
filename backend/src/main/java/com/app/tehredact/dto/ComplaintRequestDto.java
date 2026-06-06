@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ComplaintRequest {
+public class ComplaintRequestDto {
 
     private String organDestinatar;
 
