@@ -7,13 +7,13 @@ import { TextArea, TextInput } from '../ui/FormControls.jsx';
 const requiredMessage = 'Camp obligatoriu.';
 
 const defaultValues = {
-  organ_destinatar: '',
-  nume_petent: '',
-  data_nasterii: '',
+  organDestinatar: '',
+  numePetent: '',
+  dataNasterii: '',
   adresa: '',
   ocupatie: '',
   telefon: '',
-  continut_plangere: '',
+  continutPlangere: '',
   data: '',
   ora: '',
 };
@@ -39,28 +39,28 @@ function ComplaintForm({ onSubmit, onValuesChange }) {
   return (
     <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
       <TextInput
-        id="organ_destinatar"
+        id="organDestinatar"
         label="Organ destinatar"
         placeholder="Ex: Inspectoratul de Politie..."
         required
-        error={errors.organ_destinatar}
-        registration={register('organ_destinatar', { required: requiredMessage })}
+        error={errors.organDestinatar}
+        registration={register('organDestinatar', { required: requiredMessage })}
       />
 
       <div className="grid gap-4 md:grid-cols-2">
         <TextInput
-          id="nume_petent"
+          id="numePetent"
           label="Nume petent"
           required
-          error={errors.nume_petent}
-          registration={register('nume_petent', { required: requiredMessage })}
+          error={errors.numePetent}
+          registration={register('numePetent', { required: requiredMessage })}
         />
         <TextInput
-          id="data_nasterii"
+          id="dataNasterii"
           label="Data nasterii"
           type="date"
-          error={errors.data_nasterii}
-          registration={register('data_nasterii')}
+          error={errors.dataNasterii}
+          registration={register('dataNasterii')}
         />
       </div>
 
@@ -89,13 +89,13 @@ function ComplaintForm({ onSubmit, onValuesChange }) {
       </div>
 
       <TextArea
-        id="continut_plangere"
+        id="continutPlangere"
         label="Continut plangere"
         required
         rows={7}
         placeholder="Descrie situatia, circumstantele si solicitarea formulata."
-        error={errors.continut_plangere}
-        registration={register('continut_plangere', {
+        error={errors.continutPlangere}
+        registration={register('continutPlangere', {
           required: requiredMessage,
           minLength: {
             value: 30,
@@ -135,7 +135,7 @@ function ComplaintForm({ onSubmit, onValuesChange }) {
         disabled={!isValid}
       >
         <Save className="h-4 w-4" aria-hidden="true" />
-        Salveaza ciorna
+        Salveaza documentul
       </button>
     </form>
   );

@@ -3,21 +3,22 @@ import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import { Save } from 'lucide-react';
 import { TextArea, TextInput } from '../ui/FormControls.jsx';
+import axios from "axios";
 
 const requiredMessage = 'Camp obligatoriu.';
 
 const defaultValues = {
   instanta: '',
   reclamant: '',
-  adresa_reclamant: '',
-  telefon_reclamant: '',
-  email_reclamant: '',
+  adresaReclamant: '',
+  telefonReclamant: '',
+  emailReclamant: '',
   parat: '',
-  adresa_parat: '',
+  adresaParat: '',
   reprezentant: '',
-  obiect_cerere: '',
-  circumstante_de_fapt: '',
-  temei_juridic: '',
+  obiectCerere: '',
+  circumstanteDeFapt: '',
+  temeiJuridic: '',
   solicitari: '',
   anexe: '',
   data: '',
@@ -69,28 +70,28 @@ function StatementOfClaimForm({ onSubmit, onValuesChange }) {
 
       <div className="grid gap-4 md:grid-cols-2">
         <TextInput
-          id="adresa_reclamant"
+          id="adresaReclamant"
           label="Adresa reclamant"
           required
-          error={errors.adresa_reclamant}
-          registration={register('adresa_reclamant', { required: requiredMessage })}
+          error={errors.adresaReclamant}
+          registration={register('adresaReclamant', { required: requiredMessage })}
         />
         <TextInput
-          id="adresa_parat"
+          id="adresaParat"
           label="Adresa parat"
           required
-          error={errors.adresa_parat}
-          registration={register('adresa_parat', { required: requiredMessage })}
+          error={errors.adresaParat}
+          registration={register('adresaParat', { required: requiredMessage })}
         />
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
         <TextInput
-          id="telefon_reclamant"
+          id="telefonReclamant"
           label="Telefon reclamant"
           type="tel"
-          error={errors.telefon_reclamant}
-          registration={register('telefon_reclamant', {
+          error={errors.telefonReclamant}
+          registration={register('telefonReclamant', {
             pattern: {
               value: /^[+()0-9\s-]{6,20}$/,
               message: 'Introdu un numar de telefon valid.',
@@ -98,11 +99,11 @@ function StatementOfClaimForm({ onSubmit, onValuesChange }) {
           })}
         />
         <TextInput
-          id="email_reclamant"
+          id="emailReclamant"
           label="Email reclamant"
           type="email"
-          error={errors.email_reclamant}
-          registration={register('email_reclamant', {
+          error={errors.emailReclamant}
+          registration={register('emailReclamant', {
             pattern: {
               value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
               message: 'Introdu o adresa de email valida.',
@@ -120,20 +121,20 @@ function StatementOfClaimForm({ onSubmit, onValuesChange }) {
       />
 
       <TextInput
-        id="obiect_cerere"
+        id="obiectCerere"
         label="Obiect cerere"
         required
-        error={errors.obiect_cerere}
-        registration={register('obiect_cerere', { required: requiredMessage })}
+        error={errors.obiectCerere}
+        registration={register('obiectCerere', { required: requiredMessage })}
       />
 
       <TextArea
-        id="circumstante_de_fapt"
+        id="circumstanteDeFapt"
         label="Circumstante de fapt"
         required
         rows={6}
-        error={errors.circumstante_de_fapt}
-        registration={register('circumstante_de_fapt', {
+        error={errors.circumstanteDeFapt}
+        registration={register('circumstanteDeFapt', {
           required: requiredMessage,
           minLength: {
             value: 40,
@@ -143,12 +144,12 @@ function StatementOfClaimForm({ onSubmit, onValuesChange }) {
       />
 
       <TextArea
-        id="temei_juridic"
+        id="temeiJuridic"
         label="Temei juridic"
         required
         rows={4}
-        error={errors.temei_juridic}
-        registration={register('temei_juridic', { required: requiredMessage })}
+        error={errors.temeiJuridic}
+        registration={register('temeiJuridic', { required: requiredMessage })}
       />
 
       <TextArea
@@ -179,7 +180,7 @@ function StatementOfClaimForm({ onSubmit, onValuesChange }) {
         disabled={!isValid}
       >
         <Save className="h-4 w-4" aria-hidden="true" />
-        Salveaza ciorna
+          Salveaza documentul
       </button>
     </form>
   );

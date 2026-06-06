@@ -12,14 +12,14 @@ function ComplaintTemplate({ data = {} }) {
       <div className="mb-10 flex justify-end">
         <div className="w-1/2 text-left">
           <p>Către</p>
-          <p className="font-bold">{value(data, 'organ_destinatar')}</p>
+          <p className="font-bold">{value(data, 'organDestinatar')}</p>
         </div>
       </div>
 
       <section className="mb-8">
         <p>
-          Subsemnatul(a) <strong>{value(data, 'nume_petent')}</strong>, născut(ă) la data de{' '}
-          <strong>{value(data, 'data_nasterii')}</strong>, domiciliat(a) în <strong>{value(data, 'adresa')}</strong>,
+          Subsemnatul(a) <strong>{value(data, 'numePetent')}</strong>, născut(ă) la data de{' '}
+          <strong>{value(data, 'dataNasterii')}</strong>, domiciliat(a) în <strong>{value(data, 'adresa')}</strong>,
           având ocupația <strong>{value(data, 'ocupatie')}</strong>, telefon <strong>{value(data, 'telefon')}</strong>,
           formulez prezenta:
         </p>
@@ -31,7 +31,7 @@ function ComplaintTemplate({ data = {} }) {
         <p>
           {value(
             data,
-            'continut_plangere',
+            'continutPlangere',
           )}
             <div className="h-1"></div>
           Solicit înregistrarea prezentei plângeri, verificarea circumstanțelor indicate și comunicarea rezultatului în

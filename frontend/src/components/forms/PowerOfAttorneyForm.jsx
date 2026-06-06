@@ -7,21 +7,21 @@ import { TextArea, TextInput } from '../ui/FormControls.jsx';
 const requiredMessage = 'Camp obligatoriu.';
 
 const defaultValues = {
-      mandatar_nume: '',
-      mandatar_prenume: '',
-      mandatar_cetatenie:'',
-      mandatar_adresa_domiciliu: '',
-      mandatar_idnp: '',
-      mandatar_serie: '',
-      scop_mandat: '',
-      imputernicit_nume: '',
-      imputernicit_prenume: '',
-      imputernicit_cetatenie:'',
-      imputernicit_adresa_domiciliu: '',
-      imputernicit_idnp: '',
-      locul_redactarii_documentului: '',
-      imputernicit_serie: '',
-      data_emiterii: '',
+      mandatarNume: '',
+      mandatarPrenume: '',
+      mandatarCetatenie:'',
+      mandatarAdresaDomiciliu: '',
+      mandatarIdnp: '',
+      mandatarSerie: '',
+      scopMandat: '',
+      imputernicitNume: '',
+      imputernicitPrenume: '',
+      imputernicitCetatenie:'',
+      imputernicitAdresaDomiciliu: '',
+      imputernicitIdnp: '',
+      loculRedactariiDocumentului: '',
+      imputernicitSerie: '',
+      dataEmiterii: '',
 };
 
 function PowerOfAttorneyForm({ onSubmit, onValuesChange }) {
@@ -46,51 +46,51 @@ function PowerOfAttorneyForm({ onSubmit, onValuesChange }) {
 
       <div className="grid gap-4 md:grid-cols-2">
         <TextInput
-          id="mandatar_nume"
+          id="mandatarNume"
           label="Nume"
           required
-          error={errors.mandatar_nume}
-          registration={register('mandatar_nume', { required: requiredMessage })}
+          error={errors.mandatarNume}
+          registration={register('mandatarNume', { required: requiredMessage })}
         />
         <TextInput
-          id="mandatar_prenume"
+          id="mandatarPrenume"
           label="Prenume"
           required
-          error={errors.mandatar_prenume}
-          registration={register('mandatar_prenume', { required: requiredMessage })}
+          error={errors.mandatarPrenume}
+          registration={register('mandatarPrenume', { required: requiredMessage })}
         />
       </div>
 
         <TextInput
-            id="mandatar_cetatenie"
+            id="mandatarCetatenie"
             label="Tara de origine mandatar"
             required
-            error={errors.mandatar_cetatenie}
-            registration={register('mandatar_cetatenie', { required: requiredMessage })}
+            error={errors.mandatarCetatenie}
+            registration={register('mandatarCetatenie', { required: requiredMessage })}
         />
 
       <TextInput
-        id="mandatar_adresa_domiciliu"
+        id="mandatarAdresaDomiciliu"
         label="Adresa domiciliu"
         required
-        error={errors.mandatar_adresa_domiciliu}
-        registration={register('mandatar_adresa_domiciliu', { required: requiredMessage })}
+        error={errors.mandatarAdresaDomiciliu}
+        registration={register('mandatarAdresaDomiciliu', { required: requiredMessage })}
       />
 
       <div className="grid gap-4 md:grid-cols-2">
         <TextInput
-          id="mandatar_idnp"
+          id="mandatarIdnp"
           label="IDNP"
           required
-          error={errors.mandatar_idnp}
-          registration={register('mandatar_idnp', { required: requiredMessage })}
+          error={errors.mandatarIdnp}
+          registration={register('mandatarIdnp', { required: requiredMessage })}
         />
         <TextInput
-          id="mandatar_serie"
+          id="mandatarSerie"
           label="Serie buletin"
           required
-          error={errors.mandatar_serie}
-          registration={register('mandatar_serie', { required: requiredMessage })}
+          error={errors.mandatarSerie}
+          registration={register('mandatarSerie', { required: requiredMessage })}
         />
       </div>
 
@@ -98,70 +98,70 @@ function PowerOfAttorneyForm({ onSubmit, onValuesChange }) {
 
         <div className="grid gap-4 md:grid-cols-2">
             <TextInput
-                id="imputernicit_nume"
+                id="imputernicitNume"
                 label="Nume"
                 required
-                error={errors.imputernicit_nume}
-                registration={register('imputernicit_nume', { required: requiredMessage })}
+                error={errors.imputernicitNume}
+                registration={register('imputernicitNume', { required: requiredMessage })}
             />
             <TextInput
-                id="imputernicit_prenume"
+                id="imputernicitPrenume"
                 label="Prenume"
                 required
-                error={errors.imputernicit_prenume}
-                registration={register('imputernicit_prenume', { required: requiredMessage })}
+                error={errors.imputernicitPrenume}
+                registration={register('imputernicitPrenume', { required: requiredMessage })}
             />
         </div>
 
         <TextInput
-            id="imputernicit_cetatenie"
+            id="imputernicitCetatenie"
             label="Tara de origine imputernicit"
             required
-            error={errors.imputernicit_cetatenie}
-            registration={register('imputernicit_cetatenie', { required: requiredMessage })}
+            error={errors.imputernicitCetatenie}
+            registration={register('imputernicitCetatenie', { required: requiredMessage })}
         />
 
         <TextInput
-            id="imputernicit_adresa_domiciliu"
+            id="imputernicitAdresaDomiciliu"
             label="Adresa domiciliu"
             required
-            error={errors.imputernicit_adresa_domiciliu}
-            registration={register('imputernicit_adresa_domiciliu', { required: requiredMessage })}
+            error={errors.imputernicitAdresaDomiciliu}
+            registration={register('imputernicitAdresaDomiciliu', { required: requiredMessage })}
         />
 
         <div className="grid gap-4 md:grid-cols-2">
             <TextInput
-                id="imputernicit_idnp"
+                id="imputernicitIdnp"
                 label="IDNP"
                 required
-                error={errors.imputernicit_idnp}
-                registration={register('imputernicit_idnp', { required: requiredMessage })}
+                error={errors.imputernicitIdnp}
+                registration={register('imputernicitIdnp', { required: requiredMessage })}
             />
             <TextInput
-                id="imputernicit_serie"
+                id="imputernicitSerie"
                 label="Serie buletin"
                 required
-                error={errors.imputernicit_serie}
-                registration={register('imputernicit_serie', { required: requiredMessage })}
+                error={errors.imputernicitSerie}
+                registration={register('imputernicitSerie', { required: requiredMessage })}
             />
         </div>
 
       <h3 className="text-sm font-semibold text-ink-900">Detalii Mandat</h3>
         <TextInput
-            id="locul_redactarii_documentului"
+            id="loculRedactariiDocumentului"
             label="Institutia redactarii documentului"
             required
-            error={errors.locul_redactarii_documentului}
-            registration={register('locul_redactarii_documentului', { required: requiredMessage })}
+            error={errors.loculRedactariiDocumentului}
+            registration={register('loculRedactariiDocumentului', { required: requiredMessage })}
         />
       <TextArea
-        id="scop_mandat"
+        id="scopMandat"
         label="Scopul mandatului"
         required
         rows={6}
         placeholder="Descrie scopul pentru care se acorda aceasta procura..."
-        error={errors.scop_mandat}
-        registration={register('scop_mandat', {
+        error={errors.scopMandat}
+        registration={register('scopMandat', {
           required: requiredMessage,
           minLength: {
             value: 20,
@@ -171,12 +171,12 @@ function PowerOfAttorneyForm({ onSubmit, onValuesChange }) {
       />
 
       <TextInput
-        id="data_emiterii"
+        id="dataEmiterii"
         label="Data emiterii"
         type="date"
         required
-        error={errors.data_emiterii}
-        registration={register('data_emiterii', { required: requiredMessage })}
+        error={errors.dataEmiterii}
+        registration={register('dataEmiterii', { required: requiredMessage })}
       />
 
       <button
@@ -185,7 +185,7 @@ function PowerOfAttorneyForm({ onSubmit, onValuesChange }) {
         disabled={!isValid}
       >
         <Save className="h-4 w-4" aria-hidden="true" />
-        Salveaza ciorna
+          Salveaza documentul
       </button>
     </form>
   );

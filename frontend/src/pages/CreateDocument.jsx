@@ -13,6 +13,11 @@ import PowerOfAttorneyForm from '../components/forms/PowerOfAttorneyForm.jsx';
 import StatementOfClaimForm from '../components/forms/StatementOfClaimForm.jsx';
 import DocumentPreview from '../components/preview/DocumentPreview.jsx';
 import { documentTypes } from '../data/documentTypes.js';
+import {
+  createComplaint,
+  createPowerOfAttorney,
+  createStatementOfClaim,
+} from "../services/documentService";
 
 const documentIcons = {
   complaint: Scale,
@@ -55,17 +60,46 @@ function CreateDocument() {
   }, []);
 
   const handleDraftSubmit = useCallback(
-    (values) => {
-      setDraftValues(values);
-      setSavedDraft({
-        type: selectedType.title,
-        savedAt: new Intl.DateTimeFormat('ro-RO', {
-          hour: '2-digit',
-          minute: '2-digit',
-        }).format(new Date()),
-      });
-    },
-    [selectedType.title],
+      async (values) => {
+
+        try {
+
+          switch (selectedType.id) {
+
+            case "complaint":
+              await createComplaint(values);
+              break;
+
+            case "procura":
+              await createPowerOfAttorney(values);
+              break;
+
+            case "statement-of-claim":
+              await createStatementOfClaim(values);
+              break;
+
+            default:
+              throw new Error("Tip document necunoscut");
+          }
+
+          setDraftValues(values);
+
+          setSavedDraft({
+            type: selectedType.title,
+            savedAt: new Intl.DateTimeFormat("ro-RO", {
+              hour: "2-digit",
+              minute: "2-digit",
+            }).format(new Date()),
+          });
+
+        } catch (error) {
+
+          console.error(error);
+
+          alert("Eroare la salvarea documentului.");
+        }
+      },
+      [selectedType]
   );
 
   return (
