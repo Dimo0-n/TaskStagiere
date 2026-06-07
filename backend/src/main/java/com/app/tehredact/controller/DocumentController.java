@@ -3,34 +3,68 @@ package com.app.tehredact.controller;
 import com.app.tehredact.request.ComplaintGenerationRequest;
 import com.app.tehredact.request.PowerOfAttorneyGenerationRequest;
 import com.app.tehredact.request.StatementOfClaimGenerationRequest;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.app.tehredact.service.ComplaintDocumentServiceImpl;
+import com.app.tehredact.service.PowerOfAttorneyDocumentServiceImpl;
+import com.app.tehredact.service.StatementOfClaimDocumentServiceImpl;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/documents")
+@RequiredArgsConstructor
 public class DocumentController {
 
+    private final ComplaintDocumentServiceImpl complaintService;
+    private final PowerOfAttorneyDocumentServiceImpl powerOfAttorneyService;
+    private final StatementOfClaimDocumentServiceImpl statementOfClaimService;
+
+    // ── POST /api/documents/complaint ─────────────────────────────────────────
     @PostMapping("/complaint")
-    public ResponseEntity<?> createComplaint(
-            @RequestBody ComplaintGenerationRequest request) {
+    public ResponseEntity<byte[]> createComplaint(
+            @RequestBody ComplaintGenerationRequest request) throws Exception {
 
-        return ResponseEntity.ok().build();
+        byte[] docBytes = complaintService.generate(
+                request.getDocumentData(),
+                request.getFormatting()
+        );
+        return buildDocxResponse(docBytes, "plangere.docx");
     }
 
+    // ── POST /api/documents/power-of-attorney ────────────────────────────────
     @PostMapping("/power-of-attorney")
-    public ResponseEntity<?> createPowerOfAttorney(
-            @RequestBody PowerOfAttorneyGenerationRequest request) {
+    public ResponseEntity<byte[]> createPowerOfAttorney(
+            @RequestBody PowerOfAttorneyGenerationRequest request) throws Exception {
 
-        return ResponseEntity.ok().build();
+        byte[] docBytes = powerOfAttorneyService.generate(
+                request.getDocumentData(),
+                request.getFormatting()
+        );
+        return buildDocxResponse(docBytes, "procura.docx");
     }
 
+    // ── POST /api/documents/statement-of-claim ───────────────────────────────
     @PostMapping("/statement-of-claim")
-    public ResponseEntity<?> createStatementOfClaim(
-            @RequestBody StatementOfClaimGenerationRequest request) {
+    public ResponseEntity<byte[]> createStatementOfClaim(
+            @RequestBody StatementOfClaimGenerationRequest request) throws Exception {
 
-        return ResponseEntity.ok().build();
+        byte[] docBytes = statementOfClaimService.generate(
+                request.getDocumentData(),
+                request.getFormatting()
+        );
+        return buildDocxResponse(docBytes, "cerere-chemare-judecata.docx");
+    }
+
+    // ── Helper comun: construiește răspunsul cu headers corecți ──────────────
+    private ResponseEntity<byte[]> buildDocxResponse(byte[] content, String filename) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType(
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        ));
+        headers.setContentDisposition(
+                ContentDisposition.attachment().filename(filename).build()
+        );
+        headers.setContentLength(content.length);
+        return ResponseEntity.ok().headers(headers).body(content);
     }
 }

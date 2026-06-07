@@ -21,14 +21,14 @@ import {
 import { useFormatting } from "../context/useFormatting";
 
 const documentIcons = {
-  complaint: Scale,
-  procura: Briefcase,
+  'complaint': Scale,
+  'procura': Briefcase,
   'statement-of-claim': Landmark,
 };
 
 const documentForms = {
-  complaint: ComplaintForm,
-  procura: PowerOfAttorneyForm,
+  'complaint': ComplaintForm,
+  'procura': PowerOfAttorneyForm,
   'statement-of-claim': StatementOfClaimForm,
 };
 
@@ -74,17 +74,80 @@ function CreateDocument() {
 
           switch (selectedType.id) {
 
-            case "complaint":
-              await createComplaint(request);
-              break;
+            case "complaint": {
+              const response = await createComplaint(request);
 
-            case "procura":
-              await createPowerOfAttorney(request);
-              break;
+              const blob = new Blob(
+                  [response.data],
+                  {
+                    type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                  }
+              );
 
-            case "statement-of-claim":
-              await createStatementOfClaim(request);
+              const url = window.URL.createObjectURL(blob);
+
+              const link = document.createElement("a");
+              link.href = url;
+              link.download = "plangere.docx";
+
+              document.body.appendChild(link);
+              link.click();
+              link.remove();
+
+              window.URL.revokeObjectURL(url);
+
               break;
+            }
+
+            case "procura": {
+              const response = await createComplaint(request);
+
+              const blob = new Blob(
+                  [response.data],
+                  {
+                    type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                  }
+              );
+
+              const url = window.URL.createObjectURL(blob);
+
+              const link = document.createElement("a");
+              link.href = url;
+              link.download = "plangere.docx";
+
+              document.body.appendChild(link);
+              link.click();
+              link.remove();
+
+              window.URL.revokeObjectURL(url);
+
+              break;
+          }
+
+            case "statement-of-claim": {
+              const response = await createComplaint(request);
+
+              const blob = new Blob(
+                  [response.data],
+                  {
+                    type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                  }
+              );
+
+              const url = window.URL.createObjectURL(blob);
+
+              const link = document.createElement("a");
+              link.href = url;
+              link.download = "cerere-de-chemare-in-judecata.docx";
+
+              document.body.appendChild(link);
+              link.click();
+              link.remove();
+
+              window.URL.revokeObjectURL(url);
+
+              break;
+          }
 
             default:
               throw new Error("Tip document necunoscut");
@@ -120,25 +183,6 @@ function CreateDocument() {
             Selecteaza tipul actului si lucreaza intr-un flux pregatit pentru formular structurat, previzualizare A4 si
             export.
           </p>
-        </div>
-
-        <div className="flex flex-wrap gap-3">
-          <button
-            type="button"
-            className="inline-flex items-center gap-2 rounded border border-legal-100 bg-white px-4 py-2.5 text-sm font-semibold text-ink-500 shadow-soft"
-            disabled
-          >
-            <Download className="h-4 w-4" aria-hidden="true" />
-            PDF
-          </button>
-          <button
-            type="button"
-            className="inline-flex items-center gap-2 rounded border border-legal-100 bg-white px-4 py-2.5 text-sm font-semibold text-ink-500 shadow-soft"
-            disabled
-          >
-            <Download className="h-4 w-4" aria-hidden="true" />
-            DOCX
-          </button>
         </div>
       </section>
 
