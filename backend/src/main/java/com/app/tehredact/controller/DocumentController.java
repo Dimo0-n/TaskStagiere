@@ -24,6 +24,7 @@ public class DocumentController {
     public ResponseEntity<byte[]> createComplaint(
             @RequestBody ComplaintGenerationRequest request) throws Exception {
 
+//        System.out.println(request.getDocumentData().getDataNasterii() + " " + request.getFormatting().getFontFamily());
         byte[] docBytes = complaintService.generate(
                 request.getDocumentData(),
                 request.getFormatting()

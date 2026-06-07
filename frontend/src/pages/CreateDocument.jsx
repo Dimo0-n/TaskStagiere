@@ -75,6 +75,7 @@ function CreateDocument() {
           switch (selectedType.id) {
 
             case "complaint": {
+              console.log(JSON.stringify(request, null, 2));
               const response = await createComplaint(request);
 
               const blob = new Blob(
@@ -100,7 +101,7 @@ function CreateDocument() {
             }
 
             case "procura": {
-              const response = await createComplaint(request);
+              const response = await createPowerOfAttorney(request);
 
               const blob = new Blob(
                   [response.data],
@@ -113,7 +114,7 @@ function CreateDocument() {
 
               const link = document.createElement("a");
               link.href = url;
-              link.download = "plangere.docx";
+              link.download = "procura.docx";
 
               document.body.appendChild(link);
               link.click();
@@ -125,7 +126,7 @@ function CreateDocument() {
           }
 
             case "statement-of-claim": {
-              const response = await createComplaint(request);
+              const response = await createStatementOfClaim(request);
 
               const blob = new Blob(
                   [response.data],
