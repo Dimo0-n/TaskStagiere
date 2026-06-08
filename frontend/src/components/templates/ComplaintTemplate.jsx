@@ -18,7 +18,7 @@ function ComplaintTemplate({ data = {} }) {
             {/* DESTINATAR */}
             <div className="mb-4 flex justify-end">
                 <div className="w-[55%] text-left">
-                    <p className="text-[9pt] font-bold">
+                    <p className="text-[8pt] font-bold">
                         {value(data, 'organDestinatar')}
                     </p>
                 </div>
@@ -26,7 +26,7 @@ function ComplaintTemplate({ data = {} }) {
 
             {/* DATE CETATEAN */}
             <section className="mb-6 flex justify-end">
-                <div className="w-[55%] space-y-1 text-left text-[9pt]">
+                <div className="w-[55%] space-y-1 text-left text-[8pt]">
 
                     <p>
                         <strong>de la cet.</strong> {value(data, 'numePetent')}
@@ -52,9 +52,9 @@ function ComplaintTemplate({ data = {} }) {
             </section>
 
             {/* ARTICOLUL 311 */}
-            <section className="mb-5 text-[8pt] leading-tight">
+            <section className="mb-5 text-[7pt] leading-tight">
 
-                <p className="font-bold text-[9pt]">
+                <p className="font-bold text-[8pt]">
                     Articolul 311. Denunțarea falsă sau plîngerea falsă
                 </p>
 
@@ -67,7 +67,7 @@ function ComplaintTemplate({ data = {} }) {
 
                 <p>
                     se pedepsește cu amendă în mărime de pînă la 650 unități convenționale
-                    sau cu muncă neremunerată în folosul comunității de la 180 la 240 de ore,
+                    sau cu muncă neremunerată în folosul comunității de la 170 la 240 de ore,
                     sau cu închisoare de pînă la 2 ani.
                 </p>
 
@@ -94,7 +94,7 @@ function ComplaintTemplate({ data = {} }) {
             </section>
 
             {/* DECLARATIE */}
-            <section className="mb-5 text-center text-[9pt] font-bold">
+            <section className="mb-5 text-center text-[8pt] font-bold">
                 <p>
                     Cu răspunderea ce o port în conformitate cu art. 311 al Codului Penal RM
                     cu privire la denunțarea falsă am fost avertizat:
@@ -102,7 +102,7 @@ function ComplaintTemplate({ data = {} }) {
             </section>
 
             {/* DATA + ORA + SEMNATURA */}
-            <div className="mb-8 grid grid-cols-2 text-[8pt]">
+            <div className="mb-7 grid grid-cols-2 text-[7pt]">
 
                 <div>
                     <p>Data: {value(data, 'data')}</p>
@@ -116,31 +116,31 @@ function ComplaintTemplate({ data = {} }) {
             </div>
 
             {/* TITLU PLANGERE */}
-            <h1 className="mb-6 text-center text-[9pt] font-bold uppercase">
+            <h1 className="mb-6 text-center text-[8pt] font-bold uppercase">
                 PLÂNGERE
             </h1>
 
             {/* CONTINUT */}
-            <section className="text-[8pt] leading-relaxed">
+            <section className="text-[7pt] leading-relaxed">
                 <p>
                     {value(data, 'continutPlangere')}
                 </p>
             </section>
 
             {/* FOOTER PREVIEW */}
-            <section className="mt-9 border-t border-gray-400 pt-4">
+            <section className="mt-8 border-t border-gray-400 pt-4">
 
-                <p className="text-[9pt] font-bold">
+                <p className="text-[8pt] font-bold">
                     Plângerea a primit:
                 </p>
 
-                <p className="text-[9pt] font-bold">
+                <p className="text-[8pt] font-bold">
                     Ofițerul de urmărire penală al Secției de Urmărire Penală
                     a IP Centru al Direcției de Poliție mun. Chișinău
                 </p>
 
                 <div className="mt-4 flex justify-end">
-                    <div className="w-48 border-t border-black"></div>
+                    <div className="w-47 border-t border-black"></div>
                 </div>
 
             </section>

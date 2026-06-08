@@ -43,21 +43,19 @@ public class ComplaintDocumentServiceImpl implements ComplainDocumentService {
             configurePageA4(doc, fmt);
 
             // ── Către ────────────────────────────────────────────────────────
-            fmt.setFontSize(14);
             XWPFParagraph organPar =
-                    createParagraph(doc, ParagraphAlignment.LEFT, 0, 300, fmt);
+                    createParagraph(doc, ParagraphAlignment.LEFT, 0, 100, fmt);
             addRun(organPar,
                     val(data.getOrganDestinatar(), 50), true, false, fmt);
             organPar.setIndentationLeft(5500);
-
             // ── Date cetățean ────────────────────────────────────────────────
 
-            addLabelWithValue(doc, fmt, "de la cet. ", data.getNumePetent(), 200, 0);
+            addLabelWithValue(doc, fmt, "de la cet. ", data.getNumePetent(), 100, 0);
             addLabelWithValue(doc, fmt, "a.n. ", data.getDataNasterii(), 0, 0);
             addLabelWithValue(doc, fmt, "dom. ", data.getAdresa(), 0, 0);
             addLabelWithValue(doc, fmt, "Ocupația ", data.getOcupatie(), 0, 0);
             addLabelWithValue(doc, fmt, "tel. ", data.getTelefon(), 0, 200);
-            fmt.setFontSize(12);
+
 
             // ── 3. ARTICOLUL 311 ─────────────────────────────────────────────
             XWPFParagraph art311Title = createParagraph(doc, ParagraphAlignment.LEFT, 100, 0, fmt);
@@ -83,12 +81,10 @@ public class ComplaintDocumentServiceImpl implements ComplainDocumentService {
                             "sau cu închisoare de pînă la 5 ani.");
 
             // -- Avertizare------------------------------------
-            fmt.setFontSize(14);
             XWPFParagraph avertizare = createParagraph(doc, ParagraphAlignment.BOTH, 0, 0, fmt);
             addRun(avertizare, "        Cu răspunderea ce o port în conformitate cu art. 311 al Codului Penal RM cu\n" +
                     "privire la denunțarea falsă am fost avertizat:", true, false, fmt);
 
-            fmt.setFontSize(12);
             // ── Data / Semnătura ──────────────────────────────────────────────
             XWPFParagraph dataPar = createParagraph(doc, ParagraphAlignment.LEFT, 100, 0, fmt);
             addTabStop(dataPar, 5500);
@@ -101,11 +97,11 @@ public class ComplaintDocumentServiceImpl implements ComplainDocumentService {
             tabRun.setText("Semnătura:");
 
             // ── Titlu PLÂNGERE ────────────────────────────────────────────────
-            XWPFParagraph titluPar = createParagraph(doc, ParagraphAlignment.CENTER, 200, 200, fmt);
+            XWPFParagraph titluPar = createParagraph(doc, ParagraphAlignment.CENTER, 100, 100, fmt);
             addRun(titluPar, "PLÂNGERE", true, false, fmt);
 
             // ── Conținut plângere ─────────────────────────────────────────────
-            XWPFParagraph continutPar = createParagraph(doc, ParagraphAlignment.LEFT, 100, 0, fmt);
+            XWPFParagraph continutPar = createParagraph(doc, ParagraphAlignment.LEFT, 0, 0, fmt);
             addRun(continutPar, "        " + val(data.getContinutPlangere(), 25), fmt);
 
             // ── Confirmare primire plângere ─────────────────────────────────
