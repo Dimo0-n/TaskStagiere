@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { FilePenLine, Files, LayoutDashboard, Scale, Settings } from 'lucide-react';
 
 const navigation = [
-  { name: 'Dashboard', href: '/', icon: LayoutDashboard, end: true },
+  // { name: 'Dashboard', href: '/', icon: LayoutDashboard, end: true }, dashbordul va fi implementat mai tarziu
   { name: 'Documente', href: '/documents', icon: Files },
   { name: 'Creare document', href: '/create-document', icon: FilePenLine },
   { name: 'Administrare', href: '/admin', icon: Settings },
