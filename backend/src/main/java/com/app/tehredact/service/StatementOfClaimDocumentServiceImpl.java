@@ -189,7 +189,6 @@ public class StatementOfClaimDocumentServiceImpl implements StatementOfClaimDocu
             // ── Solicitări ────────────────────────────────────────────────────
             XWPFParagraph solicitIntro =
                     createParagraph(doc, ParagraphAlignment.LEFT, 200, 100, fmt);
-
             addRun(
                     solicitIntro,
                     "Astfel, reieșind din cele expuse mai sus, prin prezenta solicit:",
@@ -198,24 +197,16 @@ public class StatementOfClaimDocumentServiceImpl implements StatementOfClaimDocu
                     fmt
             );
 
-            XWPFParagraph solicitContent =
-                    createParagraph(doc, ParagraphAlignment.BOTH, 0, 300, fmt);
-
-            addRun(
-                    solicitContent,
-                    val(
-                            data.getSolicitari(),
-                            "Solicitările reclamantului urmează a fi completate."
-                    ),
-                    false,
-                    false,
+            addNumberedList(
+                    doc,
+                    data.getSolicitari(),
+                    "Solicitările reclamantului urmează a fi completate.",
                     fmt
             );
 
             // ── Anexe ─────────────────────────────────────────────────────────
             XWPFParagraph anexeLabel =
                     createParagraph(doc, ParagraphAlignment.LEFT, 200, 100, fmt);
-
             addRun(
                     anexeLabel,
                     "Anexe:",
@@ -224,14 +215,10 @@ public class StatementOfClaimDocumentServiceImpl implements StatementOfClaimDocu
                     fmt
             );
 
-            XWPFParagraph anexeContent =
-                    createParagraph(doc, ParagraphAlignment.BOTH, 0, 400, fmt);
-
-            addRun(
-                    anexeContent,
-                    val(data.getAnexe(), "Nu sunt indicate anexe."),
-                    false,
-                    false,
+            addNumberedList(
+                    doc,
+                    data.getAnexe(),
+                    "Nu sunt indicate anexe.",
                     fmt
             );
 

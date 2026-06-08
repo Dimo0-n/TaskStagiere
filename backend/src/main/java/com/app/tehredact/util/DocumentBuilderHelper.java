@@ -5,6 +5,7 @@ import org.apache.poi.xwpf.usermodel.*;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.*;
 
 import java.math.BigInteger;
+import java.util.Arrays;
 
 public class DocumentBuilderHelper {
 
@@ -197,4 +198,46 @@ public class DocumentBuilderHelper {
         );
         underlineRun.setUnderline(UnderlinePatterns.SINGLE);
     }
+
+    public static void addNumberedList(XWPFDocument doc,
+                                 String raw,
+                                 String fallback,
+                                 FormattingSettingsDto fmt) {
+        String[] items = {};
+
+        if (raw != null && !raw.isBlank()) {
+            items = Arrays.stream(raw.split(";"))
+                    .map(String::trim)
+                    .filter(s -> !s.isEmpty())
+                    .toArray(String[]::new);
+        }
+
+        if (items.length == 0) {
+            XWPFParagraph p = createParagraph(doc, ParagraphAlignment.BOTH, 0, 100, fmt);
+            addRun(p, fallback, false, false, fmt);
+            return;
+        }
+
+        for (int i = 0; i < items.length; i++) {
+            XWPFParagraph p = createParagraph(doc, ParagraphAlignment.BOTH, 0, 100, fmt);
+
+            // Hanging indent — numărul rămâne la marginea stângă, textul se aliniază
+            CTPPr pPr = p.getCTP().isSetPPr() ? p.getCTP().getPPr() : p.getCTP().addNewPPr();
+            CTInd ind = pPr.isSetInd() ? pPr.getInd() : pPr.addNewInd();
+            ind.setLeft(BigInteger.valueOf(360));
+            ind.setHanging(BigInteger.valueOf(360));
+
+            boolean isLast = (i == items.length - 1);
+            String suffix = isLast ? "." : ";";
+            String itemText = items[i];
+
+            // Elimină punctuație finală existentă înainte de a adăuga suffix-ul corect
+            if (itemText.endsWith(";") || itemText.endsWith(".")) {
+                itemText = itemText.substring(0, itemText.length() - 1).trim();
+            }
+
+            addRun(p, (i + 1) + ".  " + itemText + suffix, false, false, fmt);
+        }
+    }
+
 }

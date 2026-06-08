@@ -155,13 +155,20 @@ function StatementOfClaimForm({ onSubmit, onValuesChange }) {
       <TextArea
         id="solicitari"
         label="Solicitari"
+        placeholder="Scrieți solicitarile dvs. enumerate prin punct si virgulă."
         required
         rows={5}
         error={errors.solicitari}
         registration={register('solicitari', { required: requiredMessage })}
       />
 
-      <TextArea id="anexe" label="Anexe" rows={4} error={errors.anexe} registration={register('anexe')} />
+      <TextArea
+          id="anexe"
+          label="Anexe"
+          placeholder="Enumerați documente anexate prin punct și virgulă, daca exista."
+          rows={4}
+          error={errors.anexe}
+          registration={register('anexe')} />
 
       <div className="grid gap-4 md:grid-cols-2">
         <TextInput
