@@ -9,8 +9,7 @@ function AppRoutes() {
   return (
     <Routes>
       <Route element={<MainLayout />}>
-        <Route index element={<Dashboard />} />
-        <Route path="documents" element={<Documents />} />
+        <Route index element={<Documents />} />
         <Route path="create-document" element={<CreateDocument />} />
         <Route path="admin" element={<AdminDashboard />} />
       </Route>
