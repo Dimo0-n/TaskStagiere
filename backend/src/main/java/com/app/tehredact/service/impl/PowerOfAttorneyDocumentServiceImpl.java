@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import static com.app.tehredact.util.DocumentBuilderHelper.*;
 
@@ -235,6 +236,7 @@ public class PowerOfAttorneyDocumentServiceImpl implements PowerOfAttorneyDocume
             powerOfAttorney.setScopMandat(data.getScopMandat());
             powerOfAttorney.setLoculRedactariiDocumentului(data.getLoculRedactariiDocumentului());
             powerOfAttorney.setDataEmiterii(data.getDataEmiterii());
+            powerOfAttorney.setCreatedAt(LocalDateTime.now());
 
 
             FormattingSettings formattingSettings =

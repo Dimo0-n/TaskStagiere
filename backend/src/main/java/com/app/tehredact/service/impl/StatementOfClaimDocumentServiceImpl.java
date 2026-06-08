@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import static com.app.tehredact.util.DocumentBuilderHelper.*;
 
@@ -282,6 +283,7 @@ public class StatementOfClaimDocumentServiceImpl implements StatementOfClaimDocu
             statementOfClaim.setSolicitari(data.getSolicitari());
             statementOfClaim.setAnexe(data.getAnexe());
             statementOfClaim.setData(data.getData());
+            statementOfClaim.setCreatedAt(LocalDateTime.now());
 
             FormattingSettings formattingSettings =
                     formattingSettingsService.convertFormattingSettingsDtoToEntity(fmt);

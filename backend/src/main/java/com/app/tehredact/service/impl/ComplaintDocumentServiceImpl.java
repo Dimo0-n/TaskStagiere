@@ -6,7 +6,7 @@ import com.app.tehredact.entity.Complaint;
 import com.app.tehredact.entity.FormattingSettings;
 import com.app.tehredact.repository.ComplaintDocumentRepository;
 import com.app.tehredact.repository.FormattingSettingRepository;
-import com.app.tehredact.service.ComplainDocumentService;
+import com.app.tehredact.service.ComplaintDocumentService;
 import org.apache.poi.wp.usermodel.HeaderFooterType;
 import org.apache.poi.xwpf.usermodel.*;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPageMar;
@@ -17,11 +17,12 @@ import org.springframework.stereotype.Service;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.time.LocalDateTime;
 
 import static com.app.tehredact.util.DocumentBuilderHelper.*;
 
 @Service
-public class ComplaintDocumentServiceImpl implements ComplainDocumentService {
+public class ComplaintDocumentServiceImpl implements ComplaintDocumentService {
 
     @Autowired
     private ComplaintDocumentRepository complaintDocumentRepository;
@@ -170,6 +171,7 @@ public class ComplaintDocumentServiceImpl implements ComplainDocumentService {
             complaint.setContinutPlangere(data.getContinutPlangere());
             complaint.setData(data.getData());
             complaint.setOra(data.getOra());
+            complaint.setCreatedAt(LocalDateTime.now());
 
             FormattingSettings formattingSettings =
                     formattingSettingsService.convertFormattingSettingsDtoToEntity(fmt);

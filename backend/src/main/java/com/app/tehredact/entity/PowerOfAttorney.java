@@ -3,6 +3,8 @@ package com.app.tehredact.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
@@ -50,6 +52,8 @@ public class PowerOfAttorney {
     @OneToOne
     @JoinColumn(name = "formatting_settings_id")
     private FormattingSettings formattingSettings;
+
+    private LocalDateTime createdAt;
 
     @Column(name = "document_bytes")
     private byte[] documentBytes;

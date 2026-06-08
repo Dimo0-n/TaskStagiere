@@ -5,7 +5,7 @@ import com.app.tehredact.dto.FormattingSettingsDto;
 
 import java.io.IOException;
 
-public interface ComplainDocumentService {
+public interface ComplaintDocumentService {
 
     byte[] generate(ComplaintRequestDto data, FormattingSettingsDto fmt) throws IOException;
 
