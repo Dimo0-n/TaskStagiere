@@ -54,101 +54,224 @@ public class StatementOfClaimDocumentServiceImpl implements StatementOfClaimDocu
             configurePageA4(doc, fmt);
 
             // ── Instanța (destinatar) ─────────────────────────────────────────
-            XWPFParagraph instPar = createParagraph(doc, ParagraphAlignment.LEFT, 200, 400, fmt);
-            addRun(instPar, "        " + DocumentBuilderHelper.val(data.getInstanta(), 25), fmt);
+            fmt.setFontSize(14);
+
+            XWPFParagraph instPar =
+                    createParagraph(doc, ParagraphAlignment.LEFT, 0, 300, fmt);
+
+            addRun(
+                    instPar,
+                    DocumentBuilderHelper.val(data.getInstanta(), 100),
+                    true,
+                    false,
+                    fmt
+            );
+
+            instPar.setIndentationLeft(5500);
+
+            fmt.setFontSize(12);
 
             // ── Reclamant ─────────────────────────────────────────────────────
-            XWPFParagraph reclamantPar = createParagraph(doc, ParagraphAlignment.BOTH, 0, 0, fmt);
-            addRun(reclamantPar, "        Reclamant:  ", fmt);
-            addRun(reclamantPar, DocumentBuilderHelper.val(data.getReclamant(), 20), false, true, fmt);
-            addRun(reclamantPar, ", cu domiciliul/sediul în ", fmt);
+            XWPFParagraph reclamantPar =
+                    createParagraph(doc, ParagraphAlignment.LEFT, 0, 100, fmt);
 
-            XWPFParagraph reclamantPar2 = createParagraph(doc, ParagraphAlignment.BOTH, 0, 0, fmt);
-            addRun(reclamantPar2, DocumentBuilderHelper.val(data.getAdresaReclamant(), 25), false, true, fmt);
-            addRun(reclamantPar2, ", telefon ", fmt);
-            addRun(reclamantPar2, DocumentBuilderHelper.val(data.getTelefonReclamant(), 15), false, true, fmt);
-            addRun(reclamantPar2, ", email ", fmt);
+            reclamantPar.setIndentationLeft(5500);
 
-            XWPFParagraph reclamantPar3 = createParagraph(doc, ParagraphAlignment.BOTH, 0, 200, fmt);
-            addRun(reclamantPar3, DocumentBuilderHelper.val(data.getEmailReclamant(), 20), false, true, fmt);
-            addRun(reclamantPar3, ".", fmt);
+            addRun(reclamantPar, "Reclamant: ", true, false, fmt);
+
+            addRun(
+                    reclamantPar,
+                    data.getReclamant()
+                            + ", " + data.getAdresaReclamant()
+                            + ", tel. " + data.getTelefonReclamant()
+                            + ", e-mail " + data.getEmailReclamant(),
+                    false,
+                    false,
+                    fmt
+            );
 
             // ── Pârât ─────────────────────────────────────────────────────────
-            XWPFParagraph paratPar = createParagraph(doc, ParagraphAlignment.BOTH, 0, 0, fmt);
-            addRun(paratPar, "        Pârât:  ", fmt);
-            addRun(paratPar, DocumentBuilderHelper.val(data.getParat(), 20), false, true, fmt);
-            addRun(paratPar, ", cu domiciliul/sediul în ", fmt);
+            XWPFParagraph paratPar =
+                    createParagraph(doc, ParagraphAlignment.LEFT, 0, 100, fmt);
 
-            XWPFParagraph paratPar2 = createParagraph(doc, ParagraphAlignment.BOTH, 0, 200, fmt);
-            addRun(paratPar2, DocumentBuilderHelper.val(data.getAdresaParat(), 25), false, true, fmt);
-            addRun(paratPar2, ".", fmt);
+            paratPar.setIndentationLeft(5500);
+
+            addRun(paratPar, "Pârât: ", true, false, fmt);
+
+            addRun(
+                    paratPar,
+                    data.getParat()
+                            + ", " + data.getAdresaParat(),
+                    false,
+                    false,
+                    fmt
+            );
 
             // ── Reprezentant ──────────────────────────────────────────────────
-            XWPFParagraph repPar = createParagraph(doc, ParagraphAlignment.BOTH, 0, 300, fmt);
-            addRun(repPar, "        Reprezentant: ", fmt);
-            addRun(repPar, DocumentBuilderHelper.val(data.getReprezentant(), 20), false, true, fmt);
-            addRun(repPar, ".", fmt);
+            XWPFParagraph repPar =
+                    createParagraph(doc, ParagraphAlignment.LEFT, 0, 300, fmt);
+
+            repPar.setIndentationLeft(5500);
+
+            addRun(
+                    repPar,
+                    "Reprezentantul reclamantului: ",
+                    true,
+                    false,
+                    fmt
+            );
+
+            addRun(
+                    repPar,
+                    data.getReprezentant(),
+                    false,
+                    false,
+                    fmt
+            );
 
             // ── Titlu principal ───────────────────────────────────────────────
-            XWPFParagraph titluPar = createParagraph(doc, ParagraphAlignment.CENTER, 200, 200, fmt);
+            fmt.setFontSize(14);
+            XWPFParagraph titluPar = createParagraph(doc, ParagraphAlignment.CENTER, 400, 0, fmt);
             addRun(titluPar, "CERERE DE CHEMARE ÎN JUDECATĂ", true, false, fmt);
+            fmt.setFontSize(12);
 
             // ── Obiectul cererii ──────────────────────────────────────────────
-            XWPFParagraph obiectPar = createParagraph(doc, ParagraphAlignment.BOTH, 0, 300, fmt);
-            addRun(obiectPar, "        Obiectul cererii: ", fmt);
-            addRun(obiectPar, DocumentBuilderHelper.val(data.getObiectCerere(), 20), false, true, fmt);
-            addRun(obiectPar, ".", fmt);
+            XWPFParagraph obiectPar =
+                    createParagraph(doc, ParagraphAlignment.CENTER, 0, 200, fmt);
 
-            // ── CIRCUMSTANȚE DE FAPT ──────────────────────────────────────────
-            XWPFParagraph cfLabel = createParagraph(doc, ParagraphAlignment.LEFT, 200, 100, fmt);
-            addRun(cfLabel, "CIRCUMSTANȚE DE FAPT", true, false, fmt);
+            addRun(
+                    obiectPar,
+                    data.getObiectCerere(),
+                    false,
+                    false,
+                    fmt
+            );
 
-            XWPFParagraph cfContent = createParagraph(doc, ParagraphAlignment.BOTH, 0, 300, fmt);
-            addRun(cfContent, "        " + val(data.getCircumstanteDeFapt(),
-                    "Circumstanțele de fapt urmează a fi completate de reclamant."), fmt);
+            // ── Circumstanțele de fapt ────────────────────────────────────────
+            XWPFParagraph cfPar =
+                    createParagraph(doc, ParagraphAlignment.BOTH, 200, 300, fmt);
 
-            // ── TEMEI JURIDIC ─────────────────────────────────────────────────
-            XWPFParagraph tjLabel = createParagraph(doc, ParagraphAlignment.LEFT, 200, 100, fmt);
-            addRun(tjLabel, "TEMEI JURIDIC", true, false, fmt);
+            addRun(
+                    cfPar,
+                    "Circumstanțele de fapt: ",
+                    true,
+                    false,
+                    fmt
+            );
 
-            XWPFParagraph tjContent = createParagraph(doc, ParagraphAlignment.BOTH, 0, 300, fmt);
-            addRun(tjContent, "        " + val(data.getTemeiJuridic(),
-                    "Temeiul juridic urmează a fi indicat conform normelor aplicabile."), fmt);
+            addRun(
+                    cfPar,
+                    val(
+                            data.getCircumstanteDeFapt(),
+                            "Circumstanțele de fapt urmează a fi completate de reclamant."
+                    ),
+                    false,
+                    false,
+                    fmt
+            );
 
-            // ── SOLICITĂRI ────────────────────────────────────────────────────
-            XWPFParagraph solLabel = createParagraph(doc, ParagraphAlignment.LEFT, 200, 100, fmt);
-            addRun(solLabel, "SOLICITĂRI", true, false, fmt);
+            // ── În drept ──────────────────────────────────────────────────────
+            XWPFParagraph dreptPar =
+                    createParagraph(doc, ParagraphAlignment.CENTER, 200, 300, fmt);
 
-            XWPFParagraph solContent = createParagraph(doc, ParagraphAlignment.BOTH, 0, 300, fmt);
-            addRun(solContent, "        " + val(data.getSolicitari(),
-                    "Solicitările reclamantului urmează a fi completate."), fmt);
+            addRun(dreptPar, "În drept ", true, false, fmt);
 
-            // ── ANEXE ─────────────────────────────────────────────────────────
-            XWPFParagraph anexeLabel = createParagraph(doc, ParagraphAlignment.LEFT, 200, 100, fmt);
-            addRun(anexeLabel, "ANEXE", true, false, fmt);
+            addRun(
+                    dreptPar,
+                    "îmi întemeiez cererea pe dispoziţiile art. 66, 186 alin. (1) lit.b), "
+                            + "131 alin. (1), 142 alin (2), 151, 355 alin(1) din Codul Muncii, "
+                            + "art.166, 167 CPC RM.",
+                    false,
+                    false,
+                    fmt
+            );
 
-            XWPFParagraph anexeContent = createParagraph(doc, ParagraphAlignment.LEFT, 0, 400, fmt);
-            addRun(anexeContent, "        " + DocumentBuilderHelper.val(data.getAnexe(), 25), fmt);
+            // ── Solicitări ────────────────────────────────────────────────────
+            XWPFParagraph solicitIntro =
+                    createParagraph(doc, ParagraphAlignment.LEFT, 200, 100, fmt);
 
-            // ── Data / Semnătura ──────────────────────────────────────────────
-            XWPFParagraph dataPar = createParagraph(doc, ParagraphAlignment.LEFT, 0, 0, fmt);
-            addTabStop(dataPar, 5500);
-            addRun(dataPar, "Data:", fmt);
-            XWPFRun tabRun = dataPar.createRun();
-            tabRun.addTab();
-            tabRun.setText("Semnătura:");
+            addRun(
+                    solicitIntro,
+                    "Astfel, reieșind din cele expuse mai sus, prin prezenta solicit:",
+                    false,
+                    false,
+                    fmt
+            );
 
-            XWPFParagraph dataValPar = createParagraph(doc, ParagraphAlignment.LEFT, 0, 800, fmt);
-            addRun(dataValPar, DocumentBuilderHelper.val(data.getData(), 20), fmt);
+            XWPFParagraph solicitContent =
+                    createParagraph(doc, ParagraphAlignment.BOTH, 0, 300, fmt);
 
-            addSignatureLine(doc, fmt);
+            addRun(
+                    solicitContent,
+                    val(
+                            data.getSolicitari(),
+                            "Solicitările reclamantului urmează a fi completate."
+                    ),
+                    false,
+                    false,
+                    fmt
+            );
+
+            // ── Anexe ─────────────────────────────────────────────────────────
+            XWPFParagraph anexeLabel =
+                    createParagraph(doc, ParagraphAlignment.LEFT, 200, 100, fmt);
+
+            addRun(
+                    anexeLabel,
+                    "Anexe:",
+                    true,
+                    false,
+                    fmt
+            );
+
+            XWPFParagraph anexeContent =
+                    createParagraph(doc, ParagraphAlignment.BOTH, 0, 400, fmt);
+
+            addRun(
+                    anexeContent,
+                    val(data.getAnexe(), "Nu sunt indicate anexe."),
+                    false,
+                    false,
+                    fmt
+            );
+
+            // ── Semnătura finală ──────────────────────────────────────────────
+            XWPFParagraph signPar =
+                    createParagraph(doc, ParagraphAlignment.LEFT, 600, 0, fmt);
+
+            addTabStop(signPar, 7000);
+
+            addRun(
+                    signPar,
+                    "Reprezentantul reclamantului",
+                    false,
+                    false,
+                    fmt
+            );
+
+            XWPFRun signTab = signPar.createRun();
+            signTab.addTab();
+
+            signTab.setText(
+                    val(data.getReprezentant(), "________________")
+            );
+
+            XWPFParagraph dataPar =
+                    createParagraph(doc, ParagraphAlignment.LEFT, 200, 0, fmt);
+
+            addRun(
+                    dataPar,
+                    val(data.getData(), ""),
+                    false,
+                    false,
+                    fmt
+            );
 
             doc.write(out);
             return out.toByteArray();
         }
     }
 
-    // Suprascriere val() cu fallback text custom (nu puncte)
     private String val(String value, String fallback) {
         return (value != null && !value.isBlank()) ? value : fallback;
     }

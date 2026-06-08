@@ -32,7 +32,7 @@ function StatementOfClaimTemplate({ data = {} }) {
 
       <section className="space-y-4">
         <p>
-          Obiectul cererii: <strong>{value(data, 'obiectCerere')}</strong>.
+          Obiectivul cererii: <strong>{value(data, 'obiectCerere')}</strong>.
         </p>
       </section>
 

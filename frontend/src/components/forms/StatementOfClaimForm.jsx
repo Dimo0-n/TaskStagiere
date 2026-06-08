@@ -122,7 +122,7 @@ function StatementOfClaimForm({ onSubmit, onValuesChange }) {
 
       <TextInput
         id="obiectCerere"
-        label="Obiect cerere"
+        label="Obiectiv cerere"
         required
         error={errors.obiectCerere}
         registration={register('obiectCerere', { required: requiredMessage })}
