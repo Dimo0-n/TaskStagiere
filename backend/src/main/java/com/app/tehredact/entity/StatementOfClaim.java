@@ -51,4 +51,7 @@ public class StatementOfClaim {
     @OneToOne
     @JoinColumn(name = "formatting_settings_id")
     private FormattingSettings formattingSettings;
+
+    @Column(name = "document_bytes")
+    private byte[] documentBytes;
 }

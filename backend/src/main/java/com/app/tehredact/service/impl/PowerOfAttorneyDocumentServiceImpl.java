@@ -243,9 +243,13 @@ public class PowerOfAttorneyDocumentServiceImpl implements PowerOfAttorneyDocume
             powerOfAttorney.setFormattingSettings(formattingSettings);
 
             formattingSettingRepository.save(formattingSettings);
-            powerOfAttorneyRepository.save(powerOfAttorney);
 
             doc.write(out);
+
+            byte[] docxBytes = out.toByteArray();
+            powerOfAttorney.setDocumentBytes(docxBytes);
+            powerOfAttorneyRepository.save(powerOfAttorney);
+
             return out.toByteArray();
         }
     }

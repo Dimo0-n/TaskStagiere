@@ -289,9 +289,13 @@ public class StatementOfClaimDocumentServiceImpl implements StatementOfClaimDocu
             statementOfClaim.setFormattingSettings(formattingSettings);
 
             formattingSettingRepository.save(formattingSettings);
-            statementOfClaimRepository.save(statementOfClaim);
 
             doc.write(out);
+
+            byte[] docxBytes = out.toByteArray();
+            statementOfClaim.setDocumentBytes(docxBytes);
+            statementOfClaimRepository.save(statementOfClaim);
+
             return out.toByteArray();
         }
     }

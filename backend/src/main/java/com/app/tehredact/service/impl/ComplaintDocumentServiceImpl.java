@@ -177,9 +177,13 @@ public class ComplaintDocumentServiceImpl implements ComplainDocumentService {
             complaint.setFormattingSettings(formattingSettings);
 
             formattingSettingRepository.save(formattingSettings);
-            complaintDocumentRepository.save(complaint);
 
             doc.write(out);
+
+            byte[] docxBytes = out.toByteArray();
+            complaint.setDocumentBytes(docxBytes);
+            complaintDocumentRepository.save(complaint);
+
             return out.toByteArray();
         }
     }
