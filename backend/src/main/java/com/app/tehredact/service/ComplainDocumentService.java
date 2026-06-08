@@ -1,4 +1,4 @@
-package com.app.tehredact.service.impl;
+package com.app.tehredact.service;
 
 import com.app.tehredact.dto.ComplaintRequestDto;
 import com.app.tehredact.dto.FormattingSettingsDto;

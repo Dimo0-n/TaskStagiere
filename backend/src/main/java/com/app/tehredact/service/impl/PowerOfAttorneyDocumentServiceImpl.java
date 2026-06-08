@@ -1,9 +1,14 @@
-package com.app.tehredact.service;
+package com.app.tehredact.service.impl;
 
 import com.app.tehredact.dto.FormattingSettingsDto;
 import com.app.tehredact.dto.PowerOfAttorneyRequestDto;
-import com.app.tehredact.service.impl.PowerOfAttorneyDocumentService;
+import com.app.tehredact.entity.PowerOfAttorney;
+import com.app.tehredact.entity.FormattingSettings;
+import com.app.tehredact.repository.FormattingSettingRepository;
+import com.app.tehredact.repository.PowerOfAttorneyRepository;
+import com.app.tehredact.service.PowerOfAttorneyDocumentService;
 import org.apache.poi.xwpf.usermodel.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
@@ -14,9 +19,16 @@ import static com.app.tehredact.util.DocumentBuilderHelper.*;
 @Service
 public class PowerOfAttorneyDocumentServiceImpl implements PowerOfAttorneyDocumentService {
 
+    @Autowired
+    private PowerOfAttorneyRepository powerOfAttorneyRepository;
+
+    @Autowired
+    private FormattingSettingsServiceImpl formattingSettingsService;
+
+    @Autowired
+    private FormattingSettingRepository formattingSettingRepository;
+
     /**
-     * Generează PROCURA (Power of Attorney) conform template-ului din imagine.
-     *
      * Layout:
      *   Subsemnatul(a) [mandatarNume] [mandatarPrenume], cetățean(ă) a [mandatarCetatenie],
      *   domiciliat(ă) în [mandatarAdresaDomiciliu], identificat(ă) cu IDNP buletin
@@ -38,6 +50,7 @@ public class PowerOfAttorneyDocumentServiceImpl implements PowerOfAttorneyDocume
      *   Data emiterii: [dataEmiterii]    Semnătura:
      *                                   ______________
      */
+    @Override
     public byte[] generate(PowerOfAttorneyRequestDto data, FormattingSettingsDto fmt) throws IOException {
         try (XWPFDocument doc = new XWPFDocument();
              ByteArrayOutputStream out = new ByteArrayOutputStream()) {
@@ -204,6 +217,33 @@ public class PowerOfAttorneyDocumentServiceImpl implements PowerOfAttorneyDocume
 
             XWPFParagraph dataValPar = createParagraph(doc, ParagraphAlignment.LEFT, 0, 800, fmt);
             addRun(dataValPar, val(data.getDataEmiterii(), 20), fmt);
+
+            PowerOfAttorney powerOfAttorney = new PowerOfAttorney();
+
+            powerOfAttorney.setMandatarNume(data.getMandatarNume());
+            powerOfAttorney.setMandatarPrenume(data.getMandatarPrenume());
+            powerOfAttorney.setMandatarCetatenie(data.getMandatarCetatenie());
+            powerOfAttorney.setMandatarAdresaDomiciliu(data.getMandatarAdresaDomiciliu());
+            powerOfAttorney.setMandatarIdnp(data.getMandatarIdnp());
+            powerOfAttorney.setMandatarSerie(data.getMandatarSerie());
+            powerOfAttorney.setImputernicitNume(data.getImputernicitNume());
+            powerOfAttorney.setImputernicitPrenume(data.getImputernicitPrenume());
+            powerOfAttorney.setImputernicitCetatenie(data.getImputernicitCetatenie());
+            powerOfAttorney.setImputernicitAdresaDomiciliu(data.getImputernicitAdresaDomiciliu());
+            powerOfAttorney.setImputernicitIdnp(data.getImputernicitIdnp());
+            powerOfAttorney.setImputernicitSerie(data.getImputernicitSerie());
+            powerOfAttorney.setScopMandat(data.getScopMandat());
+            powerOfAttorney.setLoculRedactariiDocumentului(data.getLoculRedactariiDocumentului());
+            powerOfAttorney.setDataEmiterii(data.getDataEmiterii());
+
+
+            FormattingSettings formattingSettings =
+                    formattingSettingsService.convertFormattingSettingsDtoToEntity(fmt);
+
+            powerOfAttorney.setFormattingSettings(formattingSettings);
+
+            formattingSettingRepository.save(formattingSettings);
+            powerOfAttorneyRepository.save(powerOfAttorney);
 
             doc.write(out);
             return out.toByteArray();

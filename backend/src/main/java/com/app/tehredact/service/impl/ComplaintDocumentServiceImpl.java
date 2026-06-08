@@ -1,12 +1,17 @@
-package com.app.tehredact.service;
+package com.app.tehredact.service.impl;
 
 import com.app.tehredact.dto.ComplaintRequestDto;
 import com.app.tehredact.dto.FormattingSettingsDto;
-import com.app.tehredact.service.impl.ComplainDocumentService;
+import com.app.tehredact.entity.Complaint;
+import com.app.tehredact.entity.FormattingSettings;
+import com.app.tehredact.repository.ComplaintDocumentRepository;
+import com.app.tehredact.repository.FormattingSettingRepository;
+import com.app.tehredact.service.ComplainDocumentService;
 import org.apache.poi.wp.usermodel.HeaderFooterType;
 import org.apache.poi.xwpf.usermodel.*;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPageMar;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTSectPr;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
@@ -17,6 +22,15 @@ import static com.app.tehredact.util.DocumentBuilderHelper.*;
 
 @Service
 public class ComplaintDocumentServiceImpl implements ComplainDocumentService {
+
+    @Autowired
+    private ComplaintDocumentRepository complaintDocumentRepository;
+
+    @Autowired
+    private FormattingSettingsServiceImpl formattingSettingsService;
+
+    @Autowired
+    private FormattingSettingRepository formattingSettingRepository;
 
     /**
      * Layout:
@@ -36,6 +50,7 @@ public class ComplaintDocumentServiceImpl implements ComplainDocumentService {
      *   Ora:  [ora]
      *                         ________________
      */
+    @Override
     public byte[] generate(ComplaintRequestDto data, FormattingSettingsDto fmt) throws IOException {
         try (XWPFDocument doc = new XWPFDocument();
              ByteArrayOutputStream out = new ByteArrayOutputStream()) {
@@ -144,6 +159,25 @@ public class ComplaintDocumentServiceImpl implements ComplainDocumentService {
 
             CTPageMar pageMar = sectPr.addNewPgMar();
             pageMar.setFooter(BigInteger.valueOf(1200));
+
+            Complaint complaint = new Complaint();
+            complaint.setOrganDestinatar(data.getOrganDestinatar());
+            complaint.setNumePetent(data.getNumePetent());
+            complaint.setDataNasterii(data.getDataNasterii());
+            complaint.setAdresa(data.getAdresa());
+            complaint.setOcupatie(data.getOcupatie());
+            complaint.setTelefon(data.getTelefon());
+            complaint.setContinutPlangere(data.getContinutPlangere());
+            complaint.setData(data.getData());
+            complaint.setOra(data.getOra());
+
+            FormattingSettings formattingSettings =
+                    formattingSettingsService.convertFormattingSettingsDtoToEntity(fmt);
+
+            complaint.setFormattingSettings(formattingSettings);
+
+            formattingSettingRepository.save(formattingSettings);
+            complaintDocumentRepository.save(complaint);
 
             doc.write(out);
             return out.toByteArray();

@@ -1,10 +1,15 @@
-package com.app.tehredact.service;
+package com.app.tehredact.service.impl;
 
 import com.app.tehredact.dto.FormattingSettingsDto;
 import com.app.tehredact.dto.StatementOfClaimRequestDto;
-import com.app.tehredact.service.impl.StatementOfClaimDocumentService;
+import com.app.tehredact.entity.FormattingSettings;
+import com.app.tehredact.entity.StatementOfClaim;
+import com.app.tehredact.repository.FormattingSettingRepository;
+import com.app.tehredact.repository.StatementOfClaimRepository;
+import com.app.tehredact.service.StatementOfClaimDocumentService;
 import com.app.tehredact.util.DocumentBuilderHelper;
 import org.apache.poi.xwpf.usermodel.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
@@ -15,9 +20,16 @@ import static com.app.tehredact.util.DocumentBuilderHelper.*;
 @Service
 public class StatementOfClaimDocumentServiceImpl implements StatementOfClaimDocumentService {
 
+    @Autowired
+    private StatementOfClaimRepository statementOfClaimRepository;
+
+    @Autowired
+    private FormattingSettingsServiceImpl formattingSettingsService;
+
+    @Autowired
+    private FormattingSettingRepository formattingSettingRepository;
+
     /**
-     * Generează CEREREA DE CHEMARE ÎN JUDECATĂ conform template-ului din imagine.
-     *
      * Layout:
      *   [instanta]
      *
@@ -47,6 +59,7 @@ public class StatementOfClaimDocumentServiceImpl implements StatementOfClaimDocu
      *   Data: [data]         Semnătura:
      *                        ______________
      */
+    @Override
     public byte[] generate(StatementOfClaimRequestDto data, FormattingSettingsDto fmt) throws IOException {
         try (XWPFDocument doc = new XWPFDocument();
              ByteArrayOutputStream out = new ByteArrayOutputStream()) {
@@ -253,6 +266,30 @@ public class StatementOfClaimDocumentServiceImpl implements StatementOfClaimDocu
                     false,
                     fmt
             );
+
+            StatementOfClaim statementOfClaim = new StatementOfClaim();
+            statementOfClaim.setInstanta(data.getInstanta());
+            statementOfClaim.setReclamant(data.getReclamant());
+            statementOfClaim.setAdresaReclamant(data.getAdresaReclamant());
+            statementOfClaim.setTelefonReclamant(data.getTelefonReclamant());
+            statementOfClaim.setEmailReclamant(data.getEmailReclamant());
+            statementOfClaim.setParat(data.getParat());
+            statementOfClaim.setAdresaParat(data.getAdresaParat());
+            statementOfClaim.setReprezentant(data.getReprezentant());
+            statementOfClaim.setObiectCerere(data.getObiectCerere());
+            statementOfClaim.setCircumstanteDeFapt(data.getCircumstanteDeFapt());
+            statementOfClaim.setTemeiJuridic(data.getTemeiJuridic());
+            statementOfClaim.setSolicitari(data.getSolicitari());
+            statementOfClaim.setAnexe(data.getAnexe());
+            statementOfClaim.setData(data.getData());
+
+            FormattingSettings formattingSettings =
+                    formattingSettingsService.convertFormattingSettingsDtoToEntity(fmt);
+
+            statementOfClaim.setFormattingSettings(formattingSettings);
+
+            formattingSettingRepository.save(formattingSettings);
+            statementOfClaimRepository.save(statementOfClaim);
 
             doc.write(out);
             return out.toByteArray();

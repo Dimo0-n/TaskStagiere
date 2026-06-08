@@ -3,9 +3,10 @@ package com.app.tehredact.controller;
 import com.app.tehredact.request.ComplaintGenerationRequest;
 import com.app.tehredact.request.PowerOfAttorneyGenerationRequest;
 import com.app.tehredact.request.StatementOfClaimGenerationRequest;
-import com.app.tehredact.service.ComplaintDocumentServiceImpl;
-import com.app.tehredact.service.PowerOfAttorneyDocumentServiceImpl;
-import com.app.tehredact.service.StatementOfClaimDocumentServiceImpl;
+import com.app.tehredact.service.impl.ComplaintDocumentServiceImpl;
+import com.app.tehredact.service.impl.FormattingSettingsServiceImpl;
+import com.app.tehredact.service.impl.PowerOfAttorneyDocumentServiceImpl;
+import com.app.tehredact.service.impl.StatementOfClaimDocumentServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -56,7 +57,6 @@ public class DocumentController {
         return buildDocxResponse(docBytes, "cerere-chemare-judecata.docx");
     }
 
-    // ── Helper comun: construiește răspunsul cu headers corecți ──────────────
     private ResponseEntity<byte[]> buildDocxResponse(byte[] content, String filename) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType(
