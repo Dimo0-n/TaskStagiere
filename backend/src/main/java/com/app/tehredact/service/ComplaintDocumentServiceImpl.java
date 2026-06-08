@@ -3,11 +3,15 @@ package com.app.tehredact.service;
 import com.app.tehredact.dto.ComplaintRequestDto;
 import com.app.tehredact.dto.FormattingSettingsDto;
 import com.app.tehredact.service.impl.ComplainDocumentService;
+import org.apache.poi.wp.usermodel.HeaderFooterType;
 import org.apache.poi.xwpf.usermodel.*;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPageMar;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTSectPr;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.math.BigInteger;
 
 import static com.app.tehredact.util.DocumentBuilderHelper.*;
 
@@ -104,25 +108,31 @@ public class ComplaintDocumentServiceImpl implements ComplainDocumentService {
 
             // ── Confirmare primire plângere ─────────────────────────────────
 
-            XWPFParagraph receivedTitle =
-                    createParagraph(doc, ParagraphAlignment.LEFT, 100, 0, fmt);
+            XWPFFooter footer = doc.createFooter(HeaderFooterType.DEFAULT);
 
-            addRun(receivedTitle, "Plângerea a primit:", true, false, fmt);
-
-            XWPFParagraph officerPar =
-                    createParagraph(doc, ParagraphAlignment.LEFT, 0, 50, fmt);
+            XWPFParagraph receivedTitle = footer.createParagraph();
 
             addRun(
-                    officerPar,
-                    "Ofițerul de urmărire penală al Secției de Urmărire Penală " +
-                            "a IP Centru al Direcției de Poliție mun. Chișinău",
+                    receivedTitle,
+                    "Plângerea a primit:",
                     true,
                     false,
                     fmt
             );
 
-            XWPFParagraph signLine =
-                    createParagraph(doc, ParagraphAlignment.RIGHT, 20, 0, fmt);
+            XWPFParagraph officerPar = footer.createParagraph();
+
+            addRun(
+                    officerPar,
+                    "Ofițerul de urmărire penală al Secției de Urmărire Penală "
+                            + "a IP Centru al Direcției de Poliție mun. Chișinău",
+                    true,
+                    false,
+                    fmt
+            );
+
+            XWPFParagraph signLine = footer.createParagraph();
+            signLine.setAlignment(ParagraphAlignment.RIGHT);
 
             addRun(
                     signLine,
@@ -131,6 +141,11 @@ public class ComplaintDocumentServiceImpl implements ComplainDocumentService {
                     false,
                     fmt
             );
+
+            CTSectPr sectPr = doc.getDocument().getBody().addNewSectPr();
+
+            CTPageMar pageMar = sectPr.addNewPgMar();
+            pageMar.setFooter(BigInteger.valueOf(1200));
 
             doc.write(out);
             return out.toByteArray();
