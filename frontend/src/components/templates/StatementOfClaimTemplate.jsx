@@ -6,6 +6,36 @@ function value(data, key, fallback = empty) {
     return data?.[key]?.trim?.() || fallback;
 }
 
+function numberedList(raw, fallback) {
+    if (!raw?.trim()) {
+        return <p>{fallback}</p>;
+    }
+
+    const items = raw
+        .split(';')
+        .map((s) => s.trim())
+        .filter(Boolean);
+
+    if (items.length === 0) {
+        return <p>{fallback}</p>;
+    }
+
+    return (
+        <ol className="list-none space-y-1 pl-0">
+            {items.map((item, i) => {
+                const isLast = i === items.length - 1;
+                const clean = item.replace(/[;.]+$/, '');
+                return (
+                    <li key={i} className="flex gap-2">
+                        <span className="shrink-0">{i + 1}.</span>
+                        <span>{clean}{isLast ? '.' : ';'}</span>
+                    </li>
+                );
+            })}
+        </ol>
+    );
+}
+
 function StatementOfClaimTemplate({ data = {} }) {
     return (
         <article className="legal-document-template">
@@ -51,11 +81,11 @@ function StatementOfClaimTemplate({ data = {} }) {
             </section>
             <section className="mt-8 space-y-2 text-xs">
                 <p>Astfel, reieșind din cele expuse mai sus, prin prezenta solicit:</p>
-                <p>{value(data, 'solicitari', 'Solicitările reclamantului urmează a fi completate.')}</p>
+                {numberedList(data.solicitari, 'Solicitările reclamantului urmează a fi completate.')}
             </section>
             <section className="mt-8 space-y-2 text-xs">
                 <p className="font-bold">Anexe:</p>
-                <p>{value(data, 'anexe', 'Nu sunt indicate anexe.')}</p>
+                {numberedList(data.anexe, 'Nu sunt indicate anexe.')}
             </section>
             <div className="mt-12 flex items-end justify-between text-xs">
                 <p>Reprezentantul reclamantului</p>
