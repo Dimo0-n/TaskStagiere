@@ -40,5 +40,5 @@ public class Complaint {
     private FormattingSettings formattingSettings;
 
     @Column(name = "document_bytes")
-    private byte[] documentBytes; //
+    private byte[] documentBytes;
 }

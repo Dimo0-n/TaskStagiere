@@ -78,20 +78,32 @@ function PowerOfAttorneyForm({ onSubmit, onValuesChange }) {
       />
 
       <div className="grid gap-4 md:grid-cols-2">
-        <TextInput
-          id="mandatarIdnp"
-          label="IDNP"
-          required
-          error={errors.mandatarIdnp}
-          registration={register('mandatarIdnp', { required: requiredMessage })}
-        />
-        <TextInput
-          id="mandatarSerie"
-          label="Serie buletin"
-          required
-          error={errors.mandatarSerie}
-          registration={register('mandatarSerie', { required: requiredMessage })}
-        />
+          <TextInput
+              id="mandatarIdnp"
+              label="IDNP"
+              required
+              error={errors.mandatarIdnp}
+              registration={register('mandatarIdnp', {
+                  required: requiredMessage,
+                  pattern: {
+                      value: /^\d{13}$/,
+                      message: 'IDNP-ul trebuie să conțină exact 13 cifre.',
+                  },
+              })}
+          />
+          <TextInput
+              id="mandatarSerie"
+              label="Serie buletin"
+              required
+              error={errors.mandatarSerie}
+              registration={register('mandatarSerie', {
+                  required: requiredMessage,
+                  pattern: {
+                      value: /^[A-Z]\d{8}$/,
+                      message: 'Seria trebuie să conțină o majuscula urmată de 8 cifre.',
+                  },
+              })}
+          />
       </div>
 
       <h3 className="text-sm font-semibold text-ink-900">Date Persoana imputernicita</h3>
@@ -130,20 +142,34 @@ function PowerOfAttorneyForm({ onSubmit, onValuesChange }) {
         />
 
         <div className="grid gap-4 md:grid-cols-2">
-            <TextInput
-                id="imputernicitIdnp"
-                label="IDNP"
-                required
-                error={errors.imputernicitIdnp}
-                registration={register('imputernicitIdnp', { required: requiredMessage })}
-            />
-            <TextInput
-                id="imputernicitSerie"
-                label="Serie buletin"
-                required
-                error={errors.imputernicitSerie}
-                registration={register('imputernicitSerie', { required: requiredMessage })}
-            />
+            <div className="grid gap-4 md:grid-cols-2">
+                <TextInput
+                    id="imputernicitIdnp"
+                    label="IDNP"
+                    required
+                    error={errors.imputernicitIdnp}
+                    registration={register('imputernicitIdnp', {
+                        required: requiredMessage,
+                        pattern: {
+                            value: /^\d{13}$/,
+                            message: 'IDNP-ul trebuie să conțină exact 13 cifre.',
+                        },
+                    })}
+                />
+                <TextInput
+                    id="imputernicitSerie"
+                    label="Serie buletin"
+                    required
+                    error={errors.imputernicitSerie}
+                    registration={register('imputernicitSerie', {
+                        required: requiredMessage,
+                        pattern: {
+                            value: /^[A-Z]\d{8}$/,
+                            message: 'Seria trebuie să conțină o literă mare urmată de 8 cifre.',
+                        },
+                    })}
+                />
+            </div>
         </div>
 
       <h3 className="text-sm font-semibold text-ink-900">Detalii Mandat</h3>

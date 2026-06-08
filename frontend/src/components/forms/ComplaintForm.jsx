@@ -78,10 +78,11 @@ function ComplaintForm({ onSubmit, onValuesChange }) {
           id="telefon"
           label="Telefon"
           type="tel"
+          placeholder="Ex: 072 112 345"
           error={errors.telefon}
           registration={register('telefon', {
             pattern: {
-              value: /^[+()0-9\s-]{6,20}$/,
+              value: /^[+()0-9\s-]{9}$/,
               message: 'Introdu un numar de telefon valid.',
             },
           })}

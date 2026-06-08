@@ -90,10 +90,11 @@ function StatementOfClaimForm({ onSubmit, onValuesChange }) {
           id="telefonReclamant"
           label="Telefon reclamant"
           type="tel"
+          placeholder="Ex: 072 112 345"
           error={errors.telefonReclamant}
           registration={register('telefonReclamant', {
             pattern: {
-              value: /^[+()0-9\s-]{6,20}$/,
+              value: /^[+()0-9\s-]{9}$/,
               message: 'Introdu un numar de telefon valid.',
             },
           })}
