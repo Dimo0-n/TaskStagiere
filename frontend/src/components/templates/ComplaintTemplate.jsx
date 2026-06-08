@@ -9,21 +9,40 @@ function value(data, key, fallback = empty) {
 function ComplaintTemplate({ data = {} }) {
   return (
     <article className="legal-document-template">
-      <div className="mb-10 flex justify-end">
-        <div className="w-1/2 text-left">
-          <p>Către</p>
-          <p className="font-bold">{value(data, 'organDestinatar')}</p>
+        <div className="mb-2 flex justify-end">
+            <div className="w-1/2">
+                <p
+                    className="font-bold"
+                    style={{ textAlign: 'left' }}
+                >
+                    {value(data, 'organDestinatar')}
+                </p>
+            </div>
         </div>
-      </div>
 
-      <section className="mb-8">
-        <p>
-          Subsemnatul(a) <strong>{value(data, 'numePetent')}</strong>, născut(ă) la data de{' '}
-          <strong>{value(data, 'dataNasterii')}</strong>, domiciliat(a) în <strong>{value(data, 'adresa')}</strong>,
-          având ocupația <strong>{value(data, 'ocupatie')}</strong>, telefon <strong>{value(data, 'telefon')}</strong>,
-          formulez prezenta:
-        </p>
-      </section>
+        <section className="mb-4 flex justify-end">
+            <div className="w-[50%] space-y-1 text-left">
+                <p>
+                    <strong>de la cet.</strong> {value(data, 'numePetent')}
+                </p>
+
+                <p>
+                    <strong>a.n.</strong> {value(data, 'dataNasterii')}
+                </p>
+
+                <p>
+                    <strong>dom.</strong> {value(data, 'adresa')}
+                </p>
+
+                <p>
+                    <strong>Ocupația</strong> {value(data, 'ocupatie')}
+                </p>
+
+                <p>
+                    <strong>tel.</strong> {value(data, 'telefon')}
+                </p>
+            </div>
+        </section>
 
       <h1 className="mb-4 text-center text-sm font-bold uppercase">Plângere</h1>
 

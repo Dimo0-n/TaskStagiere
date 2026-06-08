@@ -36,14 +36,19 @@ public class DocumentBuilderHelper {
     }
 
     // ── Creare paragraf cu aliniere și spacing ────────────────────────────────
-    public static XWPFParagraph createParagraph(XWPFDocument doc,
-                                                 ParagraphAlignment alignment,
-                                                 int spacingBefore,
-                                                 int spacingAfter,
-                                                 FormattingSettingsDto fmt) {
+    public static XWPFParagraph createParagraph(
+            XWPFDocument doc,
+            ParagraphAlignment alignment,
+            int spacingBefore,
+            int spacingAfter,
+            FormattingSettingsDto fmt) {
+
         XWPFParagraph par = doc.createParagraph();
-        par.setAlignment(resolveAlignment(alignment, fmt));
+
+        par.setAlignment(alignment);
+
         applySpacing(par, spacingBefore, spacingAfter, fmt);
+
         return par;
     }
 
@@ -131,5 +136,65 @@ public class DocumentBuilderHelper {
             case "JUSTIFY" -> ParagraphAlignment.BOTH;
             default        -> defaultAlign;
         };
+    }
+
+    public static void addLabelWithValue(
+            XWPFDocument doc,
+            FormattingSettingsDto fmt,
+            String label,
+            String value,
+            int spaceBefore,
+            int spaceAfter) {
+
+        XWPFParagraph par =
+                createParagraph(doc, ParagraphAlignment.LEFT, spaceBefore, spaceAfter, fmt);
+
+        // Mută întregul bloc spre dreapta
+        par.setIndentationLeft(5500);
+
+        // Label
+        XWPFRun labelRun = par.createRun();
+        labelRun.setFontFamily(
+                fmt != null && fmt.getFontFamily() != null
+                        ? fmt.getFontFamily()
+                        : "Times New Roman"
+        );
+        labelRun.setFontSize(
+                fmt != null && fmt.getFontSize() != null
+                        ? fmt.getFontSize()
+                        : 12
+        );
+        labelRun.setBold(true);
+        labelRun.setText(label);
+
+        // Valoarea introdusă de utilizator
+        XWPFRun valueRun = par.createRun();
+        valueRun.setFontFamily(
+                fmt != null && fmt.getFontFamily() != null
+                        ? fmt.getFontFamily()
+                        : "Times New Roman"
+        );
+        valueRun.setFontSize(
+                fmt != null && fmt.getFontSize() != null
+                        ? fmt.getFontSize()
+                        : 12
+        );
+
+        String safeValue = value != null ? value : "";
+        valueRun.setText(safeValue);
+
+        // Completează restul liniei cu underline
+        XWPFRun underlineRun = par.createRun();
+        underlineRun.setFontFamily(
+                fmt != null && fmt.getFontFamily() != null
+                        ? fmt.getFontFamily()
+                        : "Times New Roman"
+        );
+        underlineRun.setFontSize(
+                fmt != null && fmt.getFontSize() != null
+                        ? fmt.getFontSize()
+                        : 12
+        );
+        underlineRun.setUnderline(UnderlinePatterns.SINGLE);
     }
 }

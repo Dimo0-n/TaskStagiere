@@ -15,8 +15,6 @@ import static com.app.tehredact.util.DocumentBuilderHelper.*;
 public class ComplaintDocumentServiceImpl implements ComplainDocumentService {
 
     /**
-     * Generează documentul PLÂNGERE conform template-ului din imagine.
-     *
      * Layout:
      *   Către
      *   [organDestinatar]
@@ -41,61 +39,110 @@ public class ComplaintDocumentServiceImpl implements ComplainDocumentService {
             configurePageA4(doc, fmt);
 
             // ── Către ────────────────────────────────────────────────────────
-            XWPFParagraph catrePar = createParagraph(doc, ParagraphAlignment.CENTER, 200, 0, fmt);
-            addRun(catrePar, "Către", false, false, fmt);
+            XWPFParagraph organPar =
+                    createParagraph(doc, ParagraphAlignment.LEFT, 0, 300, fmt);
+            addRun(organPar,
+                    val(data.getOrganDestinatar(), 50), true, false, fmt);
+            organPar.setIndentationLeft(5500);
 
-            XWPFParagraph organPar = createParagraph(doc, ParagraphAlignment.CENTER, 0, 400, fmt);
-            addRun(organPar, val(data.getOrganDestinatar(), 25), false, false, fmt);
+            // ── Date cetățean ────────────────────────────────────────────────
 
-            // ── Subsemnatul(a) ────────────────────────────────────────────────
-            XWPFParagraph line1 = createParagraph(doc, ParagraphAlignment.BOTH, 200, 0, fmt);
-            addRun(line1, "        Subsemnatul(a) ", fmt);
-            addRun(line1, val(data.getNumePetent(), 25), false, true, fmt);
-            addRun(line1, ", născut(ă) la data de ", fmt);
+            addLabelWithValue(doc, fmt, "de la cet. ", data.getNumePetent(), 200, 0);
+            addLabelWithValue(doc, fmt, "a.n. ", data.getDataNasterii(), 0, 0);
+            addLabelWithValue(doc, fmt, "dom. ", data.getAdresa(), 0, 0);
+            addLabelWithValue(doc, fmt, "Ocupația ", data.getOcupatie(), 0, 0);
+            addLabelWithValue(doc, fmt, "tel. ", data.getTelefon(), 0, 200);
 
-            XWPFParagraph line2 = createParagraph(doc, ParagraphAlignment.BOTH, 0, 0, fmt);
-            addRun(line2, val(data.getDataNasterii(), 20), false, true, fmt);
-            addRun(line2, ", domiciliat(ă) în ", fmt);
-            addRun(line2, val(data.getAdresa(), 25), false, true, fmt);
-            addRun(line2, ", având ocupația ", fmt);
+            // ── 3. ARTICOLUL 311 ─────────────────────────────────────────────
+            XWPFParagraph art311Title = createParagraph(doc, ParagraphAlignment.LEFT, 100, 0, fmt);
+            addRun(art311Title, "Articolul 311. Denunțarea falsă sau plîngerea falsă", true, false, fmt);
 
-            XWPFParagraph line3 = createParagraph(doc, ParagraphAlignment.BOTH, 0, 400, fmt);
-            addRun(line3, val(data.getOcupatie(), 20), false, true, fmt);
-            addRun(line3, ", telefon ", fmt);
-            addRun(line3, val(data.getTelefon(), 20), false, true, fmt);
-            addRun(line3, ", formulez prezenta:", fmt);
+            addJustifiedText(doc, fmt,
+                    "        (1) Denunțarea cu bună știință falsă  în scopul de a-l învinui pe cineva de " +
+                            "săvîrșirea unei infracțiuni, sau plîngerea cu bună știință falsă despre săvîrșirea " +
+                            "unei infracțiuni, făcută unui organ sau unei persoane cu funcție de răspundere, care " +
+                            "sînt în drept de a porni urmărirea penală,");
+            addJustifiedText(doc, fmt,
+                    "        se pedepsește cu amendă în mărime de pînă la 650 unități convenționale sau cu " +
+                            "muncă neremunerată în folosul comunității de la 180 la 240 de ore, sau cu închisoare " +
+                            "de pînă la 2 ani.");
+            addJustifiedText(doc, fmt, "          (2) Aceeași acțiune:");
+            addJustifiedText(doc, fmt,
+                    "        a) legată de învinuirea de săvîrșire a unei infracțiuni grave, deosebi de " +
+                            "grave sau excepțional de grave;");
+            addJustifiedText(doc, fmt, "          b) săvîrșită din interes material;");
+            addJustifiedText(doc, fmt, "          c) însoțită de crearea artificială a probelor acuzatoare");
+            addJustifiedText(doc, fmt,
+                    "        se pedepsește cu amendă în mărime de la 550 la 1150 unități convenționale " +
+                            "sau cu închisoare de pînă la 5 ani.");
+
+            // -- Avertizare------------------------------------
+            fmt.setFontSize(14);
+            XWPFParagraph avertizare = createParagraph(doc, ParagraphAlignment.BOTH, 0, 0, fmt);
+            addRun(avertizare, "        Cu răspunderea ce o port în conformitate cu art. 311 al Codului Penal RM cu\n" +
+                    "privire la denunțarea falsă am fost avertizat:", true, false, fmt);
+
+            fmt.setFontSize(12);
+            // ── Data / Semnătura ──────────────────────────────────────────────
+            XWPFParagraph dataPar = createParagraph(doc, ParagraphAlignment.LEFT, 100, 0, fmt);
+            addTabStop(dataPar, 5500);
+            XWPFParagraph oraPar = createParagraph(doc, ParagraphAlignment.LEFT, 0, 0, fmt);
+            addTabStop(oraPar, 5500);
+            addRun(oraPar, "Ora: " + val(data.getOra(), 20), fmt);
+            addRun(dataPar, "Data: " + val(data.getData(), 20), fmt);
+            XWPFRun tabRun = dataPar.createRun();
+            tabRun.addTab();
+            tabRun.setText("Semnătura:");
 
             // ── Titlu PLÂNGERE ────────────────────────────────────────────────
             XWPFParagraph titluPar = createParagraph(doc, ParagraphAlignment.CENTER, 200, 200, fmt);
             addRun(titluPar, "PLÂNGERE", true, false, fmt);
 
             // ── Conținut plângere ─────────────────────────────────────────────
-            XWPFParagraph continutPar = createParagraph(doc, ParagraphAlignment.LEFT, 0, 0, fmt);
+            XWPFParagraph continutPar = createParagraph(doc, ParagraphAlignment.LEFT, 100, 0, fmt);
             addRun(continutPar, "        " + val(data.getContinutPlangere(), 25), fmt);
 
-            // ── Solicit ───────────────────────────────────────────────────────
-            XWPFParagraph solicitPar = createParagraph(doc, ParagraphAlignment.BOTH, 200, 600, fmt);
-            addRun(solicitPar,
-                    "Solicit înregistrarea prezentei plângeri, verificarea circumstanțelor " +
-                    "indicate și comunicarea rezultatului în termenul prevăzut de lege.", fmt);
+            // ── Confirmare primire plângere ─────────────────────────────────
 
-            // ── Data / Semnătura ──────────────────────────────────────────────
-            XWPFParagraph dataPar = createParagraph(doc, ParagraphAlignment.LEFT, 0, 0, fmt);
-            addTabStop(dataPar, 5500);
-            addRun(dataPar, "Data: " + val(data.getData(), 20), fmt);
-            XWPFRun tabRun = dataPar.createRun();
-            tabRun.addTab();
-            tabRun.setText("Semnătura:");
+            XWPFParagraph receivedTitle =
+                    createParagraph(doc, ParagraphAlignment.LEFT, 100, 0, fmt);
 
-            XWPFParagraph oraPar = createParagraph(doc, ParagraphAlignment.LEFT, 0, 800, fmt);
-            addRun(oraPar, "Ora: " + val(data.getOra(), 20), fmt);
+            addRun(receivedTitle, "Plângerea a primit:", true, false, fmt);
 
-            // ── Linie semnătură ───────────────────────────────────────────────
-            addSignatureLine(doc, fmt);
+            XWPFParagraph officerPar =
+                    createParagraph(doc, ParagraphAlignment.LEFT, 0, 50, fmt);
+
+            addRun(
+                    officerPar,
+                    "Ofițerul de urmărire penală al Secției de Urmărire Penală " +
+                            "a IP Centru al Direcției de Poliție mun. Chișinău",
+                    true,
+                    false,
+                    fmt
+            );
+
+            XWPFParagraph signLine =
+                    createParagraph(doc, ParagraphAlignment.RIGHT, 20, 0, fmt);
+
+            addRun(
+                    signLine,
+                    "______________________________",
+                    false,
+                    false,
+                    fmt
+            );
 
             doc.write(out);
-
             return out.toByteArray();
         }
     }
+
+    /**
+     * Paragraf text justificat.
+     */
+    private void addJustifiedText(XWPFDocument doc, FormattingSettingsDto fmt, String text) {
+        XWPFParagraph par = createParagraph(doc, ParagraphAlignment.BOTH, 0, 0, fmt);
+        addRun(par, text, false, false, fmt);
+    }
+
 }
