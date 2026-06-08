@@ -43,6 +43,7 @@ public class ComplaintDocumentServiceImpl implements ComplainDocumentService {
             configurePageA4(doc, fmt);
 
             // ── Către ────────────────────────────────────────────────────────
+            fmt.setFontSize(14);
             XWPFParagraph organPar =
                     createParagraph(doc, ParagraphAlignment.LEFT, 0, 300, fmt);
             addRun(organPar,
@@ -56,6 +57,7 @@ public class ComplaintDocumentServiceImpl implements ComplainDocumentService {
             addLabelWithValue(doc, fmt, "dom. ", data.getAdresa(), 0, 0);
             addLabelWithValue(doc, fmt, "Ocupația ", data.getOcupatie(), 0, 0);
             addLabelWithValue(doc, fmt, "tel. ", data.getTelefon(), 0, 200);
+            fmt.setFontSize(12);
 
             // ── 3. ARTICOLUL 311 ─────────────────────────────────────────────
             XWPFParagraph art311Title = createParagraph(doc, ParagraphAlignment.LEFT, 100, 0, fmt);
