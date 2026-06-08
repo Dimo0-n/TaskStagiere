@@ -55,6 +55,20 @@ function Documents() {
     });
   }, [query, selectedStatus, documents]);
 
+  const downloadDocx = (documentId) => {
+    window.open(
+        `http://localhost:8080/api/documents/${documentId}/docx`,
+        "_blank"
+    );
+  };
+
+  const downloadPdf = (documentId) => {
+    window.open(
+        `http://localhost:8080/api/documents/${documentId}/pdf`,
+        "_blank"
+    );
+  };
+
   return (
       <div className="space-y-8">
         <section className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
@@ -159,6 +173,7 @@ function Documents() {
                             <div className="relative group">
                               <button
                                   type="button"
+                                  onClick={() => downloadPdf(document.id)}
                                   className="inline-flex h-9 w-9 items-center justify-center rounded border border-red-200 text-red-500 transition hover:border-red-500 hover:text-red-600"
                                   aria-label={`Exportă PDF ${document.title}`}
                               >
@@ -173,6 +188,7 @@ function Documents() {
                             <div className="relative group">
                               <button
                                   type="button"
+                                  onClick={() => downloadDocx(document.id)}
                                   className="inline-flex h-9 w-9 items-center justify-center rounded border border-blue-200 text-blue-500 transition hover:border-blue-500 hover:text-blue-600"
                                   aria-label={`Exportă DOCX ${document.title}`}
                               >
